@@ -88,7 +88,7 @@
                 <div class="w-9 h-9 rounded-full overflow-hidden border border-pink-200 shadow-sm bg-pink-50 flex items-center justify-center relative">
                     <!-- Backup SVG Icon: Displayed behind the image to prevent white/broken boxes -->
                     <span class="absolute text-xl z-0">🧞‍♂️</span>
-                    <img src="icon.png" class="w-full h-full object-cover relative z-10" alt="ロゴ" onerror="this.style.opacity='0';">
+                    <img src="icon.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
                 </div>
                 <div>
                     <h1 class="text-xs font-black tracking-wider text-brand-pinkDark">MAGIC JOURNEY</h1>
@@ -121,11 +121,11 @@
                         <!-- If bubble image loaded, it overlays neatly over the text -->
                         <div class="relative w-full h-8 flex items-center justify-center">
                             <span class="absolute text-xs font-black text-brand-pinkDark z-0">すやすや... いい夢みてるよ...💤</span>
-                            <img src="sleep_bubble.jpg" id="stepun-bubble-img" class="absolute max-h-full object-contain z-10" alt="吹き出し" onerror="this.style.opacity='0';">
+                            <img src="sleep_bubble.jpg" id="stepun-bubble-img" class="absolute max-h-full object-contain z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
                         </div>
                     </div>
 
-                    <!-- Stepun Mascot Avatar (Jenie.jpg) -->
+                    <!-- Stepun Mascot Avatar (Jenie.png) -->
                     <div class="relative w-44 h-44 flex items-center justify-center stepun-float">
                         <!-- Glowing circular ring background -->
                         <div class="absolute inset-0 bg-pink-200/40 rounded-full blur-2xl scale-95 transition-all"></div>
@@ -133,7 +133,7 @@
                             <div class="w-full h-full bg-white rounded-full overflow-hidden flex items-center justify-center relative">
                                 <!-- Backup SVG Mascot icon so that there's NEVER a broken image placeholder -->
                                 <span class="absolute text-5xl z-0">🧞‍♂️</span>
-                                <img src="Jenie.jpg" class="absolute w-full h-full object-cover z-10 transition-transform" alt="ステップン" onerror="this.style.opacity='0';">
+                                <img src="Jenie.png" class="absolute w-full h-full object-cover z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
                             </div>
                         </div>
                     </div>
@@ -144,12 +144,12 @@
                         
                         <!-- Beautiful Golden Lamp -->
                         <div id="lamp-wrapper" class="relative w-52 h-36 flex items-center justify-center transition-transform z-10">
-                            <!-- Backup SVG Lamp vector so that there's NEVER a blank yellow square -->
+                            <!-- Backup SVG Lamp vector so that there's NEVER a blank square or text leak -->
                             <svg class="absolute w-36 h-24 text-amber-300 opacity-60 z-0" viewBox="0 0 100 60" fill="currentColor">
                                 <path d="M15 35 Q40 45 80 28 C95 15 75 10 50 15 Z" />
                                 <circle cx="50" cy="12" r="5" />
                             </svg>
-                            <img src="LAMP.png" class="absolute w-full h-full object-contain z-10" alt="魔法のランプ" onerror="this.style.opacity='0';">
+                            <img src="LAMP.png" class="absolute w-full h-full object-contain z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
                         </div>
 
                         <!-- Swipe Track Guidance indicator -->
@@ -182,7 +182,7 @@
                         <!-- Mini Mascot Avatar -->
                         <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-sm relative bg-pink-50 flex items-center justify-center mb-2">
                             <span class="absolute text-2xl z-0">🧞‍♂️</span>
-                            <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
+                            <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
                         </div>
 
                         <span class="text-[9px] font-black text-brand-pink uppercase tracking-widest">Today's Magic</span>
@@ -204,7 +204,7 @@
                             <button onclick="toggleSelectStatus(this, 'no')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-slate-100 text-slate-400 font-bold text-xs transition-all">できなかった💦</button>
                         </div>
 
-                        <!-- Mood Picker (Upgraded into 4 choices as requested) -->
+                        <!-- Mood Picker -->
                         <div class="space-y-1.5">
                             <p class="text-[10px] font-black text-slate-400 text-center">今の気分は？（4つの選択式）</p>
                             <div class="grid grid-cols-4 gap-2 px-1">
@@ -244,7 +244,7 @@
                         <!-- Stepun avatar cropped -->
                         <div class="w-20 h-20 rounded-full overflow-hidden border border-pink-100 relative bg-pink-50 flex items-center justify-center">
                             <span class="absolute text-4xl z-0">🧞‍♂️</span>
-                            <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10 grayscale opacity-70" alt="ステップン" onerror="this.style.opacity='0';">
+                            <img src="Jenie.png" class="w-full h-full object-cover relative z-10 grayscale opacity-70 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
                         </div>
                         <div class="absolute -bottom-1 -right-1 bg-brand-pink text-white w-6 h-6 rounded-full flex items-center justify-center border-2 border-white font-black text-xs shadow">🔒</div>
                     </div>
@@ -262,7 +262,7 @@
                 <!-- Unlocked Real Timeline Content -->
                 <div id="timeline-unlocked-screen" class="hidden space-y-4">
                     
-                    <!-- Letter from graduate senior (P3-Q3 Senior letter system) -->
+                    <!-- Letter from graduate senior -->
                     <div class="bg-gradient-to-tr from-pink-50 to-pink-100 border border-pink-100 rounded-3xl p-4 relative overflow-hidden shadow-sm">
                         <p class="text-[9px] font-black text-brand-pinkDark mb-0.5">💌 完走した先輩からの手紙</p>
                         <p class="text-[11px] text-slate-600 font-bold leading-relaxed">
@@ -304,7 +304,7 @@
                     <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 text-center text-xs"></div>
                 </div>
 
-                <!-- Detail View of Selected Past Day with Later impact update form (F-04) -->
+                <!-- Detail View of Selected Past Day with Later impact update form -->
                 <div id="past-detail-box" class="bg-white border border-pink-100 rounded-3xl p-5 shadow-sm space-y-3">
                     <div class="flex justify-between items-start">
                         <div>
@@ -358,7 +358,7 @@
                     <!-- Decorative Mascot Image -->
                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border border-pink-100 relative bg-white flex items-center justify-center">
                         <span class="absolute text-2xl z-0">🧞‍♂️</span>
-                        <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
+                        <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
                     </div>
 
                     <div class="space-y-1">
@@ -405,7 +405,7 @@
                     </div>
                 </div>
 
-                <!-- Privacy & Opt-Out Settings (B2B Academic and scientific database F-08) -->
+                <!-- Privacy & Opt-Out Settings -->
                 <div class="bg-white border border-pink-100 rounded-3xl p-4 space-y-3 shadow-sm">
                     <h3 class="text-xs font-black text-slate-700 border-b border-slate-50 pb-1.5 flex items-center space-x-1.5">
                         <span>🛡️</span> <span>プライバシーポリシー ＆ データ設定</span>
@@ -449,7 +449,7 @@
 
         </main>
 
-        <!-- Fixed Bottom Navigation bar (F-09 navigation setup) -->
+        <!-- Fixed Bottom Navigation bar -->
         <nav class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[92%] h-16 bg-white rounded-3xl border border-pink-100 flex items-center justify-around px-2 z-30 shadow-md">
             <button onclick="switchTab('today')" id="nav-today" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span class="text-lg">🔮</span>
@@ -458,15 +458,15 @@
             <button onclick="switchTab('share')" id="nav-share" class="relative flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span id="share-lock-badge" class="absolute top-1 right-4 text-[8px] bg-brand-pink text-white font-extrabold px-1.5 rounded-full border border-white">🔒</span>
                 <span class="text-lg">💬</span>
-                <span class="text-[9px] font-black mt-1">広場</span>
+                <span class="text-[9px] font-black mt-1">励まし広場</span>
             </button>
             <button onclick="switchTab('past')" id="nav-past" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span class="text-lg">📅</span>
-                <span class="text-[9px] font-black mt-1">貯蔵庫</span>
+                <span class="text-[9px] font-black mt-1">記録</span>
             </button>
             <button onclick="switchTab('settings')" id="nav-settings" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span class="text-lg">⚙️</span>
-                <span class="text-[9px] font-black mt-1">マイ頁</span>
+                <span class="text-[9px] font-black mt-1">マイページ</span>
             </button>
         </nav>
 
@@ -501,7 +501,7 @@
                     <!-- Icon Avatar representation inside details modal -->
                     <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-300 bg-white flex items-center justify-center relative">
                         <span class="absolute text-xl z-0">🧞‍♂️</span>
-                        <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
+                        <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
                     </div>
                     <span>ステップンの応援アドバイス (Gemini AI)：</span>
                 </div>
@@ -521,7 +521,7 @@
 
             <!-- Harder challenge segment -->
             <div class="bg-white p-3 rounded-2xl border border-orange-200 space-y-1">
-                <strong class="text-[10px] text-orange-500 block font-black">🌶️ もしできそうなら（ハードチャレンジ）：</strong>
+                <strong class="text-xs text-orange-500 block font-black">🌶️ もしできそうなら（ハードチャレンジ）：</strong>
                 <p id="modal-magic-hard-challenge" class="text-[10px] text-slate-500 leading-relaxed font-semibold"></p>
             </div>
 
@@ -531,14 +531,14 @@
         </div>
     </div>
 
-    <!-- Modal B: Full Praise Feedback (P3-Q3 immediate reward system) -->
+    <!-- Modal B: Full Praise Feedback -->
     <div id="modal-feedback" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50 animate-fade-in">
         <div class="bg-brand-bg w-full max-w-sm border border-pink-100 rounded-3xl p-5 shadow-2xl space-y-4 text-center relative overflow-hidden">
             <div class="absolute -top-10 -right-10 w-44 h-44 bg-pink-100 opacity-20 rounded-full blur-3xl"></div>
             
             <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-md relative bg-white flex items-center justify-center animate-bounce">
                 <span class="absolute text-4xl z-0">🧞‍♂️</span>
-                <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
+                <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
             </div>
 
             <div class="space-y-0.5">
@@ -553,9 +553,11 @@
 
             <div id="feedback-content-box" class="bg-white border border-pink-100 p-4 rounded-2xl text-[11px] leading-relaxed text-slate-600 text-left italic font-semibold shadow-inner"></div>
 
-            <button onclick="finishFeedback()" class="w-full bg-gradient-to-r from-pink-500 to-amber-400 text-white font-black text-xs py-3 rounded-2xl hover:opacity-95 transition shadow-sm">
-                タイムラインをアンロックする！🔓✨
-            </button>
+            <div class="pt-2">
+                <button onclick="finishFeedback()" class="w-full bg-gradient-to-r from-pink-500 to-amber-400 text-white font-black text-xs py-3 rounded-2xl hover:opacity-95 transition shadow-sm">
+                    タイムラインをアンロックする！🔓✨
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1087,7 +1089,7 @@
                 });
 
                 userPost.innerHTML = `
-                    <div class="absolute top-2 right-2 bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black">あなた</div>
+                    <div class="absolute top-2 right-2 bg-brand-pink text-white text-[8px] px-2.5 py-0.5 rounded-full font-black">あなた</div>
                     <div class="flex items-center space-x-2">
                         <span class="text-2xl">${appState.selectedAvatar}</span>
                         <div>
