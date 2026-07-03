@@ -3,109 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAGIC JOURNEY - 毎日の小さな一歩が、心に小さな魔法をかけていく</title>
+    <title>マジックステップ - 〜魔法の一歩〜</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            pink: '#f48fb1',
-                            pinkLight: '#fff1f3',
-                            pinkDark: '#c2185b',
-                            gold: '#fbbf24',
-                            goldLight: '#fef3c7',
-                            slate: '#334155',
-                            bg: '#fdfbf7'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts: M PLUS Rounded 1c (Soft and friendly gothic) -->
+    <!-- Google Fonts: M PLUS Rounded 1c (Rounded Gothic for softness) -->
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'M PLUS Rounded 1c', sans-serif;
             background-color: #f7fee7;
+            transition: background-color 0.5s ease;
         }
 
-        /* Smooth fade-in transition */
-        .animate-fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Float animation for mascot stepun */
-        @keyframes gentle-float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(1deg); }
-        }
-        .stepun-float {
-            animation: gentle-float 4s ease-in-out infinite;
-        }
-
-        /* Shake animation for the lamp when rubbing */
-        @keyframes lamp-shake {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            20% { transform: rotate(-6deg) scale(1.03); }
-            40% { transform: rotate(5deg) scale(0.97); }
-            60% { transform: rotate(-4deg) scale(1.01); }
-            80% { transform: rotate(3deg) scale(0.99); }
-        }
-        .shake-lamp {
-            animation: lamp-shake 0.3s ease-in-out infinite;
+        /* 1. Pastel Theme Colors */
+        body.theme-pastel {
+            --color-bg: linear-gradient(135deg, #fbcfe8 0%, #fae8ff 50%, #e0f2fe 100%);
+            --color-text: #475569;
+            --color-text-secondary: #64748b;
+            --color-card: rgba(255, 255, 255, 0.85);
+            --color-card-border: rgba(244, 63, 94, 0.15);
+            --color-accent: #db2777;
+            --color-accent-light: #fbcfe8;
+            --color-accent-grad-from: #db2777;
+            --color-accent-grad-to: #ec4899;
+            --color-gold: #fbbf24;
+            --color-gold-light: #fef3c7;
+            --color-tab-active: #db2777;
+            --color-badge-bg: #fce7f3;
+            --color-badge-text: #db2777;
+            --color-input-bg: rgba(255, 255, 255, 0.95);
+            --color-input-border: #f0abfc;
+            --color-shadow: rgba(236, 72, 153, 0.15);
+            --color-nav-bg: rgba(255, 255, 255, 0.9);
+            --color-nav-border: rgba(244, 63, 94, 0.12);
         }
 
-        /* Custom scrollbar */
+        /* 2. Natural Theme Colors */
+        body.theme-natural {
+            --color-bg: linear-gradient(135deg, #f0fdf4 0%, #fef9c3 60%, #fafaf9 100%);
+            --color-text: #2d3748;
+            --color-text-secondary: #4a5568;
+            --color-card: rgba(255, 255, 255, 0.9);
+            --color-card-border: rgba(16, 185, 129, 0.2);
+            --color-accent: #059669;
+            --color-accent-light: #a7f3d0;
+            --color-accent-grad-from: #059669;
+            --color-accent-grad-to: #34d399;
+            --color-gold: #d97706;
+            --color-gold-light: #fef9c3;
+            --color-tab-active: #059669;
+            --color-badge-bg: #e6fcf5;
+            --color-badge-text: #059669;
+            --color-input-bg: #fdfdfc;
+            --color-input-border: #86efac;
+            --color-shadow: rgba(16, 185, 129, 0.1);
+            --color-nav-bg: rgba(255, 255, 255, 0.9);
+            --color-nav-border: rgba(16, 185, 129, 0.15);
+        }
+
+        /* 3. Fantasy Night Theme Colors (Cute Dark Theme) */
+        body.theme-night {
+            --color-bg: radial-gradient(circle at center, #2e1a47 0%, #0a0521 100%);
+            --color-text: #f1f5f9;
+            --color-text-secondary: #94a3b8;
+            --color-card: rgba(30, 20, 81, 0.75);
+            --color-card-border: rgba(139, 92, 246, 0.3);
+            --color-accent: #f43f5e;
+            --color-accent-light: #fecdd3;
+            --color-accent-grad-from: #e11d48;
+            --color-accent-grad-to: #f43f5e;
+            --color-gold: #fbbf24;
+            --color-gold-light: #fef3c7;
+            --color-tab-active: #fbbf24;
+            --color-badge-bg: #2a1b6d;
+            --color-badge-text: #fbbf24;
+            --color-input-bg: rgba(15, 9, 43, 0.85);
+            --color-input-border: #5b3ebf;
+            --color-shadow: rgba(139, 92, 246, 0.25);
+            --color-nav-bg: rgba(18, 11, 56, 0.9);
+            --color-nav-border: rgba(139, 92, 246, 0.25);
+        }
+
+        /* Applying CSS variables to elements dynamically via CSS rule */
+        .theme-container {
+            color: var(--color-text);
+        }
+
+        /* Custom scrollbar matching M PLUS font rounded vibe */
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #f48fb1;
-            border-radius: 99px;
+            background: var(--color-accent-light);
+            border-radius: 999px;
+        }
+
+        /* Bouncy cute animation for Step-un */
+        @keyframes stepun-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .stepun-floating {
+            animation: stepun-float 3.5s ease-in-out infinite;
+        }
+
+        /* Shake animation for the cute lamp */
+        @keyframes cute-lamp-shake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            20% { transform: rotate(-6deg) scale(1.03); }
+            40% { transform: rotate(5deg) scale(0.97); }
+            60% { transform: rotate(-4deg) scale(1.01); }
+            80% { transform: rotate(3deg) scale(1); }
+        }
+        .shake-lamp {
+            animation: cute-lamp-shake 0.3s ease-in-out infinite;
+        }
+
+        /* Floating particles styling for sparkly feedback */
+        .sparkle {
+            pointer-events: none;
+            position: absolute;
+            background: radial-gradient(circle, var(--color-accent) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: float-sparkle 1.2s ease-out forwards;
+        }
+        @keyframes float-sparkle {
+            0% { transform: translateY(0) scale(0); opacity: 1; }
+            100% { transform: translateY(-100px) translateX(var(--x, 0px)) scale(1.2); opacity: 0; }
         }
     </style>
 </head>
-<body class="flex justify-center items-center min-h-screen">
+<body class="theme-pastel text-slate-700 flex justify-center items-center min-h-screen overflow-x-hidden p-2">
 
-    <!-- 📱 Mobile View Container -->
-    <div class="relative w-full max-w-md h-[920px] bg-brand-bg shadow-2xl overflow-hidden flex flex-col border border-pink-100 rounded-[42px]">
+    <div id="app-viewport" style="background: var(--color-bg);" class="relative w-full max-w-md h-[920px] shadow-2xl overflow-hidden flex flex-col border border-[var(--color-card-border)] rounded-3xl transition-all duration-500">
         
-        <!-- Header -->
-        <header class="w-full bg-white/95 backdrop-blur-md px-5 py-3 flex items-center justify-between border-b border-pink-50 z-30">
+        <!-- Header & Quick Theme Switcher + Testing Bar -->
+        <header class="w-full bg-[var(--color-nav-bg)] backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-[var(--color-nav-border)] z-30 transition-all">
             <div class="flex items-center space-x-2">
-                <!-- Brand logo from Screenshot 2026-07-03 18.54.09.png -->
-                <div class="w-9 h-9 rounded-full overflow-hidden border border-pink-200 shadow-sm bg-pink-50 flex items-center justify-center relative">
-                    <!-- Backup SVG Icon: Displayed behind the image to prevent white/broken boxes -->
+                <!-- Brand logo from Jenie.png (100% Unified) -->
+                <div class="w-9 h-9 rounded-full overflow-hidden border border-[var(--color-card-border)] shadow-sm bg-white flex items-center justify-center relative">
                     <span class="absolute text-xl z-0">🧞‍♂️</span>
-                    <img src="icon.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
+                    <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
                 </div>
                 <div>
-                    <h1 class="text-xs font-black tracking-wider text-brand-pinkDark">MAGIC JOURNEY</h1>
-                    <p class="text-[9px] text-slate-400 font-bold">14日間の心のエクササイズ</p>
+                    <h1 class="text-xs font-black tracking-wide text-[var(--color-accent)]" style="font-size: 14px;">MAGIC JOURNEY</h1>
+                    <p class="text-[9px] text-[var(--color-text-secondary)] font-bold">14日間の心のエクササイズ</p>
                 </div>
             </div>
             
-            <!-- Quick Demo Day Switcher -->
-            <div class="flex items-center space-x-1.5 bg-pink-50/80 px-2.5 py-1 rounded-full border border-pink-100 shadow-inner">
-                <span id="day-badge" class="font-black text-[10px] text-brand-pinkDark mr-1">Day 1</span>
-                <button onclick="toggleDay()" class="bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-brand-pinkDark active:scale-95 transition-transform" title="日替わりデモ">日めくり</button>
-                <button onclick="resetApp()" class="bg-amber-400 text-slate-800 text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-amber-500 active:scale-95 transition-transform" title="ランプをこすり直す">リセット</button>
+            <!-- Quick Demo & Theme Switcher Controller inside the Header -->
+            <div class="flex items-center space-x-1 bg-[var(--color-input-bg)] px-2 py-1.5 rounded-full border border-[var(--color-card-border)] text-[9px] shadow-inner transition-all">
+                <span id="day-badge" class="font-bold text-[var(--color-accent)] mr-1">Day 1</span>
+                <button onclick="toggleDay()" class="bg-[var(--color-accent)] text-white px-1.5 py-0.5 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform" title="日めくりデモ">日切替</button>
+                <button onclick="resetApp()" class="bg-amber-400 text-slate-800 px-1.5 py-0.5 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform ml-0.5" title="ランプをこすり直す">リセット</button>
             </div>
         </header>
 
+        <!-- Dynamic Theme Swapping Mini Panel inside Top Header spacer -->
+        <div class="bg-[var(--color-nav-bg)]/80 backdrop-blur-sm px-4 py-1.5 border-b border-[var(--color-nav-border)] flex items-center justify-between text-[10px] z-20">
+            <span class="text-[var(--color-text-secondary)] font-bold">🎨 着せ替えテーマ:</span>
+            <div class="flex space-x-1.5">
+                <button onclick="setTheme('pastel')" class="px-2 py-0.5 rounded-full bg-pink-100 hover:bg-pink-200 border border-pink-300 text-pink-700 font-bold transition">パステル</button>
+                <button onclick="setTheme('natural')" class="px-2 py-0.5 rounded-full bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-800 font-bold transition">ナチュラル</button>
+                <button onclick="setTheme('night')" class="px-2 py-0.5 rounded-full bg-indigo-950 hover:bg-indigo-900 border border-indigo-700 text-indigo-200 font-bold transition">ナイト</button>
+            </div>
+        </div>
+
         <!-- Main Content Area -->
-        <main class="flex-1 overflow-y-auto pb-24 relative z-10">
+        <main class="flex-1 overflow-y-auto pb-24 z-10 text-[var(--color-text)]">
 
             <!-- ========================================== -->
             <!-- 🔮 TAB 1: TODAY'S MAGIC (MAIN RUB SCREEN) -->
@@ -115,18 +184,14 @@
                 <!-- Initial State: Rubbing the Magic Lamp -->
                 <div id="section-rub" class="w-full flex flex-col items-center space-y-4">
                     
-                    <!-- Balloon: Stepun Speaking -->
-                    <div class="w-full max-w-[280px] bg-white border border-pink-100 rounded-3xl p-3 text-center shadow-sm relative animate-pulse">
-                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r border-b border-pink-100 rotate-45"></div>
-                        <!-- If bubble image loaded, it overlays neatly over the text -->
-                        <div class="relative w-full h-8 flex items-center justify-center">
-                            <span class="absolute text-xs font-black text-brand-pinkDark z-0">すやすや... いい夢みてるよ...💤</span>
-                            <img src="sleep_bubble.jpg" id="stepun-bubble-img" class="absolute max-h-full object-contain z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
-                        </div>
+                    <!-- Balloon: Stepun Speaking (Upgraded to Pure CSS Balloon: 100% Robust!) -->
+                    <div class="w-full max-w-[280px] bg-white border border-pink-100 rounded-2xl px-4 py-3 text-center shadow-sm relative animate-pulse z-20">
+                        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white border-r border-b border-pink-100 rotate-45"></div>
+                        <p id="sleep-bubble-text" class="text-xs font-black text-brand-pinkDark tracking-wider">すやすや… いい夢みてるよ…💤</p>
                     </div>
 
-                    <!-- Stepun Mascot Avatar (Jenie.png) -->
-                    <div class="relative w-44 h-44 flex items-center justify-center stepun-float">
+                    <!-- Stepun Mascot Avatar (Jenie.png Unified) -->
+                    <div class="relative w-44 h-44 flex items-center justify-center stepun-floating">
                         <!-- Glowing circular ring background -->
                         <div class="absolute inset-0 bg-pink-200/40 rounded-full blur-2xl scale-95 transition-all"></div>
                         <div class="absolute inset-2 bg-gradient-to-tr from-pink-300 via-pink-400 to-amber-300 rounded-full p-1 shadow-inner">
@@ -138,7 +203,7 @@
                         </div>
                     </div>
 
-                    <!-- Interactive Magic Lamp Swipe Zone (LAMP.png) -->
+                    <!-- Interactive Magic Lamp Swipe Zone (LAMP.png Unified) -->
                     <div id="lamp-touch-zone" class="relative w-full h-48 bg-pink-50/20 rounded-3xl border border-dashed border-pink-100 flex items-center justify-center select-none cursor-grab active:cursor-grabbing">
                         <canvas id="smoke-canvas" class="absolute inset-0 pointer-events-none z-20"></canvas>
                         
@@ -160,7 +225,7 @@
 
                     <!-- Nice Round Progress Bar -->
                     <div class="w-4/5 space-y-1">
-                        <div class="flex justify-between text-[10px] font-black text-slate-400">
+                        <div class="flex justify-between text-xs font-black text-slate-400">
                             <span>ステップンのめざめ度</span>
                             <span id="rub-percentage">0%</span>
                         </div>
@@ -179,7 +244,7 @@
                     <div class="w-full bg-white rounded-3xl p-5 border border-pink-100 shadow-sm text-center relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-300 to-amber-300"></div>
                         
-                        <!-- Mini Mascot Avatar -->
+                        <!-- Mini Mascot Avatar (Jenie.png Unified) -->
                         <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-sm relative bg-pink-50 flex items-center justify-center mb-2">
                             <span class="absolute text-2xl z-0">🧞‍♂️</span>
                             <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.display='none';">
@@ -218,7 +283,7 @@
                         <!-- Optional diary memo comment -->
                         <div class="space-y-1">
                             <label class="block text-[10px] font-black text-slate-400">気づいた変化やひとこと（自由入力）</label>
-                            <textarea id="memo-input" class="w-full bg-slate-50 border border-slate-100 rounded-2xl p-3 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-brand-pink transition h-14 font-semibold resize-none" placeholder="例：意外とすんなり喜んでもらえた！心もあったかくなったな。"></textarea>
+                            <textarea id="memo-input" class="w-full bg-slate-50 border border-slate-100 rounded-2xl p-3 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-brand-pink transition h-14 font-semibold resize-none" placeholder="例：意外とすんなり喜てもらえた！心もあったかくなったな。"></textarea>
                         </div>
 
                         <button onclick="submitMagicJournal()" class="w-full bg-slate-800 text-white font-black py-3.5 rounded-full shadow-lg shadow-slate-900/10 hover:scale-[1.01] active:scale-95 transition text-xs">
@@ -241,7 +306,7 @@
                 <!-- Locked Screen (BeReal Style lock) -->
                 <div id="timeline-locked-screen" class="flex flex-col items-center justify-center text-center py-10 px-4 space-y-4">
                     <div class="relative flex items-center justify-center w-28 h-28 rounded-full border border-pink-100 bg-white shadow-sm">
-                        <!-- Stepun avatar cropped -->
+                        <!-- Stepun avatar cropped (Jenie.png Unified) -->
                         <div class="w-20 h-20 rounded-full overflow-hidden border border-pink-100 relative bg-pink-50 flex items-center justify-center">
                             <span class="absolute text-4xl z-0">🧞‍♂️</span>
                             <img src="Jenie.png" class="w-full h-full object-cover relative z-10 grayscale opacity-70 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
@@ -271,7 +336,7 @@
                         </p>
                     </div>
 
-                    <!-- Dynamic Timeline post list goes here -->
+                    <!-- Dynamic Timeline post list -->
                     <div id="timeline-posts-container" class="space-y-3"></div>
                 </div>
 
@@ -320,7 +385,7 @@
                         <p><strong>直後の変化：</strong> <span id="past-change-text" class="text-slate-800">駅員さんがすごく笑顔を返してくれた！</span></p>
                     </div>
 
-                    <!-- Subsequent Reflection input (e.g. "3 days later effect") -->
+                    <!-- Subsequent Reflection input -->
                     <div class="border-t border-dashed border-pink-100 pt-3 mt-1 space-y-2 bg-pink-50/20 p-3 rounded-2xl">
                         <div class="flex items-center space-x-1">
                             <span class="text-xs">⏳</span>
@@ -351,11 +416,11 @@
                     <p class="text-[9px] text-slate-400 font-bold mt-0.5">これまでの心の変化、プロフィールの設定</p>
                 </div>
 
-                <!-- Self Assessment Diagnostic (MBTI Style - Day 2+ lock) -->
+                <!-- Self Assessment Diagnostic (MBTI Style) -->
                 <div id="diagnostic-notice-card" class="bg-gradient-to-tr from-pink-50/50 to-amber-50/50 border-2 border-dashed border-pink-100 p-4 rounded-3xl text-center space-y-3 relative overflow-hidden">
                     <div class="absolute top-0 left-0 bg-brand-pink text-white text-[7px] px-2.5 py-0.5 rounded-br-2xl font-black uppercase tracking-wider">Day 2 以降で解放</div>
                     
-                    <!-- Decorative Mascot Image -->
+                    <!-- Decorative Mascot Image (Jenie.png Unified) -->
                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border border-pink-100 relative bg-white flex items-center justify-center">
                         <span class="absolute text-2xl z-0">🧞‍♂️</span>
                         <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
@@ -458,15 +523,15 @@
             <button onclick="switchTab('share')" id="nav-share" class="relative flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span id="share-lock-badge" class="absolute top-1 right-4 text-[8px] bg-brand-pink text-white font-extrabold px-1.5 rounded-full border border-white">🔒</span>
                 <span class="text-lg">💬</span>
-                <span class="text-[9px] font-black mt-1">励まし広場</span>
+                <span class="text-[9px] font-black mt-1">広場</span>
             </button>
             <button onclick="switchTab('past')" id="nav-past" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span class="text-lg">📅</span>
-                <span class="text-[9px] font-black mt-1">記録</span>
+                <span class="text-[9px] font-black mt-1">貯蔵庫</span>
             </button>
             <button onclick="switchTab('settings')" id="nav-settings" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
                 <span class="text-lg">⚙️</span>
-                <span class="text-[9px] font-black mt-1">マイページ</span>
+                <span class="text-[9px] font-black mt-1">マイ頁</span>
             </button>
         </nav>
 
@@ -476,7 +541,7 @@
     <!-- OVERLAYS & MODALS                          -->
     <!-- ========================================== -->
     
-    <!-- Modal A: Magic Mission Details + Gemini Assistant Explanation -->
+    <!-- Modal A: Magic Mission Details -->
     <div id="modal-magic-details" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50 animate-fade-in">
         <div class="bg-brand-bg w-full max-w-sm border border-pink-100 rounded-3xl p-5 shadow-2xl space-y-4 max-h-[82vh] overflow-y-auto">
             <div class="flex justify-between items-start">
@@ -495,10 +560,9 @@
                 <p id="modal-magic-long-desc" class="text-xs text-slate-500 leading-relaxed font-semibold"></p>
             </div>
 
-            <!-- Dynamic Gemini Assistant explanation -->
+            <!-- Dynamic Gemini Assistant explanation (Jenie.png Unified) -->
             <div class="relative bg-amber-50/50 border border-amber-100 p-4 rounded-2xl space-y-2 shadow-inner">
                 <div class="flex items-center space-x-1.5 text-xs font-black text-brand-pinkDark">
-                    <!-- Icon Avatar representation inside details modal -->
                     <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-300 bg-white flex items-center justify-center relative">
                         <span class="absolute text-xl z-0">🧞‍♂️</span>
                         <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
@@ -531,7 +595,7 @@
         </div>
     </div>
 
-    <!-- Modal B: Full Praise Feedback -->
+    <!-- Modal B: Full Praise Feedback (Jenie.png Unified) -->
     <div id="modal-feedback" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50 animate-fade-in">
         <div class="bg-brand-bg w-full max-w-sm border border-pink-100 rounded-3xl p-5 shadow-2xl space-y-4 text-center relative overflow-hidden">
             <div class="absolute -top-10 -right-10 w-44 h-44 bg-pink-100 opacity-20 rounded-full blur-3xl"></div>
@@ -589,7 +653,6 @@
                     laterChange: '3日後の今日、また同じ電車でお会いして、にこにこ会釈をしてくれました。優しさは巡ります！'
                 }
             ],
-            // Updated exact missions as requested
             missions: {
                 1: {
                     title: "電車で席を譲る魔法 🤝",
@@ -665,12 +728,12 @@
 
         // State Save
         function saveState() {
-            localStorage.setItem('magic_journey_state_github', JSON.stringify(appState));
+            localStorage.setItem('magic_journey_state_github_v2', JSON.stringify(appState));
         }
 
         // State Load
         function loadState() {
-            const saved = localStorage.getItem('magic_journey_state_github');
+            const saved = localStorage.getItem('magic_journey_state_github_v2');
             if (saved) {
                 try {
                     appState = { ...appState, ...JSON.parse(saved) };
@@ -692,7 +755,7 @@
             document.getElementById('section-magic-unlocked').classList.add('hidden');
             document.getElementById('rub-progress-bar').style.width = '0%';
             document.getElementById('rub-percentage').innerText = '0%';
-            document.getElementById('rub-status-text').innerText = 'ステップンを起こそう...';
+            updateRubUI();
             
             // Empty input memo
             document.getElementById('memo-input').value = "";
@@ -847,10 +910,14 @@
             document.getElementById('rub-percentage').innerText = `${appState.rubProgress}%`;
             
             const remaining = Math.max(0, 5 - Math.floor(appState.rubCounts / 2));
+            const bubbleText = document.getElementById('sleep-bubble-text');
+            
             if (remaining > 0) {
-                document.getElementById('rub-status-text').innerText = `く、くすぐったいよ〜！あと${remaining}回なでなでして！`;
+                document.getElementById('rub-status-text').innerText = `ステップンを起こそう... (あと ${remaining}回なでなで)`;
+                bubbleText.innerText = `く、くすぐったいよぅ！起きちゃう…！💦`;
             } else {
-                document.getElementById('rub-status-text').innerText = `起きちゃったー！✨`;
+                document.getElementById('rub-status-text').innerText = `ステップンが起きたよ！✨`;
+                bubbleText.innerText = `パチッ！おはよ〜！よく起こしてくれたね！✨`;
             }
         }
 
@@ -859,7 +926,7 @@
             appState.isRubbed = true;
             saveState();
 
-            showToast("✨🧞‍♂️", "ステップン：『ふわあぁ…ご主人さま、よく起こしてくれました！』");
+            showToast("✨🧞‍♂️", "ステップン：『ふわあぁ…よく起こしてくれました！』");
             
             setTimeout(() => {
                 document.getElementById('section-rub').classList.add('hidden');
@@ -882,7 +949,7 @@
                 document.getElementById('section-magic-unlocked').classList.add('hidden');
             }
 
-            // Timeline lock status sync (BeReal mode)
+            // Timeline lock status sync
             if (appState.isUnlocked) {
                 document.getElementById('timeline-locked-screen').classList.add('hidden');
                 document.getElementById('timeline-unlocked-screen').classList.remove('hidden');
@@ -1091,7 +1158,11 @@
                 userPost.innerHTML = `
                     <div class="absolute top-2 right-2 bg-brand-pink text-white text-[8px] px-2.5 py-0.5 rounded-full font-black">あなた</div>
                     <div class="flex items-center space-x-2">
-                        <span class="text-2xl">${appState.selectedAvatar}</span>
+                        <!-- Custom Avatar using Jenie.png Unified -->
+                        <div class="w-8 h-8 rounded-full overflow-hidden border border-pink-200 bg-white relative">
+                            <span class="absolute text-xl z-0">🧞‍♂️</span>
+                            <img src="Jenie.png" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0');" onerror="this.style.opacity='1';">
+                        </div>
                         <div>
                             <strong class="text-xs text-slate-700">${appState.userName}</strong>
                             <p class="text-[8px] text-slate-400">たった今 ・ Day ${todayRecord.dayNum}</p>
