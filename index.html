@@ -88,7 +88,7 @@
                 <div class="w-9 h-9 rounded-full overflow-hidden border border-pink-200 shadow-sm bg-pink-50 flex items-center justify-center relative">
                     <!-- Backup SVG Icon: Displayed behind the image to prevent white/broken boxes -->
                     <span class="absolute text-xl z-0">🧞‍♂️</span>
-                    <img src="スクリーンショット 2026-07-03 18.54.09.png" class="w-full h-full object-cover relative z-10" alt="ロゴ">
+                    <img src="icon.png" class="w-full h-full object-cover relative z-10" alt="ロゴ" onerror="this.style.opacity='0';">
                 </div>
                 <div>
                     <h1 class="text-xs font-black tracking-wider text-brand-pinkDark">MAGIC JOURNEY</h1>
@@ -99,7 +99,7 @@
             <!-- Quick Demo Day Switcher -->
             <div class="flex items-center space-x-1.5 bg-pink-50/80 px-2.5 py-1 rounded-full border border-pink-100 shadow-inner">
                 <span id="day-badge" class="font-black text-[10px] text-brand-pinkDark mr-1">Day 1</span>
-                <button onclick="toggleDay()" class="bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-brand-pinkDark active:scale-95 transition-transform" title="1日目と2日目の切り替え">日めくり</button>
+                <button onclick="toggleDay()" class="bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-brand-pinkDark active:scale-95 transition-transform" title="日替わりデモ">日めくり</button>
                 <button onclick="resetApp()" class="bg-amber-400 text-slate-800 text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-amber-500 active:scale-95 transition-transform" title="ランプをこすり直す">リセット</button>
             </div>
         </header>
@@ -118,15 +118,14 @@
                     <!-- Balloon: Stepun Speaking -->
                     <div class="w-full max-w-[280px] bg-white border border-pink-100 rounded-3xl p-3 text-center shadow-sm relative animate-pulse">
                         <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r border-b border-pink-100 rotate-45"></div>
-                        <!-- Screenshot 2026-07-02 23.39.56.jpg contains 'すやすや...いい夢みてるよ...' -->
                         <!-- If bubble image loaded, it overlays neatly over the text -->
                         <div class="relative w-full h-8 flex items-center justify-center">
                             <span class="absolute text-xs font-black text-brand-pinkDark z-0">すやすや... いい夢みてるよ...💤</span>
-                            <img src="スクリーンショット 2026-07-02 23.39.56.jpg" id="stepun-bubble-img" class="absolute max-h-full object-contain z-10" alt="吹き出し" onerror="this.classList.add('hidden')">
+                            <img src="sleep_bubble.jpg" id="stepun-bubble-img" class="absolute max-h-full object-contain z-10" alt="吹き出し" onerror="this.style.opacity='0';">
                         </div>
                     </div>
 
-                    <!-- Stepun Mascot Avatar (Screenshot_2026-07-02 23.35.16_3.png) -->
+                    <!-- Stepun Mascot Avatar (Jenie.jpg) -->
                     <div class="relative w-44 h-44 flex items-center justify-center stepun-float">
                         <!-- Glowing circular ring background -->
                         <div class="absolute inset-0 bg-pink-200/40 rounded-full blur-2xl scale-95 transition-all"></div>
@@ -134,20 +133,23 @@
                             <div class="w-full h-full bg-white rounded-full overflow-hidden flex items-center justify-center relative">
                                 <!-- Backup SVG Mascot icon so that there's NEVER a broken image placeholder -->
                                 <span class="absolute text-5xl z-0">🧞‍♂️</span>
-                                <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="absolute w-full h-full object-cover z-10 transition-transform" alt="ステップン">
+                                <img src="Jenie.jpg" class="absolute w-full h-full object-cover z-10 transition-transform" alt="ステップン" onerror="this.style.opacity='0';">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Interactive Magic Lamp Swipe Zone (Screenshot_2026-07-02_23.35.11-removebg-preview.png) -->
+                    <!-- Interactive Magic Lamp Swipe Zone (LAMP.png) -->
                     <div id="lamp-touch-zone" class="relative w-full h-48 bg-pink-50/20 rounded-3xl border border-dashed border-pink-100 flex items-center justify-center select-none cursor-grab active:cursor-grabbing">
                         <canvas id="smoke-canvas" class="absolute inset-0 pointer-events-none z-20"></canvas>
                         
                         <!-- Beautiful Golden Lamp -->
                         <div id="lamp-wrapper" class="relative w-52 h-36 flex items-center justify-center transition-transform z-10">
                             <!-- Backup SVG Lamp vector so that there's NEVER a blank yellow square -->
-                            <svg class="absolute w-36 h-24 opacity-25 z-0" viewBox="0 0 100 60" fill="currentColor"><path d="M10 40 Q40 50 80 30 Q90 10 50 15 Z"/></svg>
-                            <img src="スクリーンショット_2026-07-02_23.35.11-removebg-preview.png" class="absolute w-full h-full object-contain z-10" alt="魔法のランプ">
+                            <svg class="absolute w-36 h-24 text-amber-300 opacity-60 z-0" viewBox="0 0 100 60" fill="currentColor">
+                                <path d="M15 35 Q40 45 80 28 C95 15 75 10 50 15 Z" />
+                                <circle cx="50" cy="12" r="5" />
+                            </svg>
+                            <img src="LAMP.png" class="absolute w-full h-full object-contain z-10" alt="魔法のランプ" onerror="this.style.opacity='0';">
                         </div>
 
                         <!-- Swipe Track Guidance indicator -->
@@ -165,7 +167,7 @@
                         <div class="w-full h-3.5 bg-white rounded-full overflow-hidden border border-pink-100 shadow-inner p-0.5">
                             <div id="rub-progress-bar" class="w-0 h-full bg-gradient-to-r from-pink-400 to-amber-300 rounded-full transition-all duration-300"></div>
                         </div>
-                        <p id="rub-status-text" class="text-center text-[10px] text-slate-400 font-bold">ステップンを起こしよう...</p>
+                        <p id="rub-status-text" class="text-center text-[10px] text-slate-400 font-bold">ステップンを起こそう...</p>
                     </div>
 
                 </div>
@@ -180,7 +182,7 @@
                         <!-- Mini Mascot Avatar -->
                         <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-sm relative bg-pink-50 flex items-center justify-center mb-2">
                             <span class="absolute text-2xl z-0">🧞‍♂️</span>
-                            <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                            <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
                         </div>
 
                         <span class="text-[9px] font-black text-brand-pink uppercase tracking-widest">Today's Magic</span>
@@ -192,7 +194,7 @@
                         </button>
                     </div>
 
-                    <!-- Journal Input Section (F-02 Journaling & Simplified action confirmation) -->
+                    <!-- Journal Input Section -->
                     <div class="w-full bg-white rounded-3xl p-5 border border-pink-100 shadow-sm space-y-4">
                         <h3 class="text-xs font-black text-slate-700 text-center">魔法は使えた？ 🧙‍♀️</h3>
 
@@ -202,14 +204,14 @@
                             <button onclick="toggleSelectStatus(this, 'no')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-slate-100 text-slate-400 font-bold text-xs transition-all">できなかった💦</button>
                         </div>
 
-                        <!-- Mood Picker -->
+                        <!-- Mood Picker (Upgraded into 4 choices as requested) -->
                         <div class="space-y-1.5">
-                            <p class="text-[10px] font-black text-slate-400 text-center">その時のきもちは？</p>
-                            <div class="flex justify-between px-2">
-                                <button onclick="selectFeeling(this, '😊')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">😊</button>
-                                <button onclick="selectFeeling(this, '😌')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">😌</button>
-                                <button onclick="selectFeeling(this, '💦')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">💦</button>
-                                <button onclick="selectFeeling(this, '🤔')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">🤔</button>
+                            <p class="text-[10px] font-black text-slate-400 text-center">今の気分は？（4つの選択式）</p>
+                            <div class="grid grid-cols-4 gap-2 px-1">
+                                <button onclick="selectFeeling(this, 'ふわふわ')" class="feeling-btn py-2 px-1 rounded-xl bg-slate-50 border-2 border-transparent text-[11px] font-black text-slate-500 transition-all hover:scale-105">☁️ ふわふわ</button>
+                                <button onclick="selectFeeling(this, 'もやもや')" class="feeling-btn py-2 px-1 rounded-xl bg-slate-50 border-2 border-transparent text-[11px] font-black text-slate-500 transition-all hover:scale-105">🌀 もやもや</button>
+                                <button onclick="selectFeeling(this, 'すっきり')" class="feeling-btn py-2 px-1 rounded-xl bg-slate-50 border-2 border-transparent text-[11px] font-black text-slate-500 transition-all hover:scale-105">✨ すっきり</button>
+                                <button onclick="selectFeeling(this, 'わくわく')" class="feeling-btn py-2 px-1 rounded-xl bg-slate-50 border-2 border-transparent text-[11px] font-black text-slate-500 transition-all hover:scale-105">🌟 わくわく</button>
                             </div>
                         </div>
 
@@ -242,14 +244,14 @@
                         <!-- Stepun avatar cropped -->
                         <div class="w-20 h-20 rounded-full overflow-hidden border border-pink-100 relative bg-pink-50 flex items-center justify-center">
                             <span class="absolute text-4xl z-0">🧞‍♂️</span>
-                            <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10 grayscale opacity-70" alt="ステップン">
+                            <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10 grayscale opacity-70" alt="ステップン" onerror="this.style.opacity='0';">
                         </div>
                         <div class="absolute -bottom-1 -right-1 bg-brand-pink text-white w-6 h-6 rounded-full flex items-center justify-center border-2 border-white font-black text-xs shadow">🔒</div>
                     </div>
                     <div class="space-y-1.5 max-w-xs">
                         <h3 class="text-xs font-black text-slate-700">魔法を放ち、扉を開けよう！</h3>
                         <p class="text-[10px] text-slate-400 leading-relaxed font-semibold">
-                            「MAGIC JOURNEY」は安全なアウトプットを促すため、**自分が今日の魔法を完了（投稿）するまで**、他のメンバー of の報告を閲覧できない仕様になっています。
+                            「MAGIC JOURNEY」は安全なアウトプットを促すため、**自分が今日の魔法を完了（投稿）するまで**、他のメンバーの報告を閲覧できない仕様になっています。
                         </p>
                     </div>
                     <button onclick="switchTab('today')" class="bg-brand-pink text-white font-black text-[10px] px-6 py-2.5 rounded-full hover:bg-brand-pinkDark active:scale-95 transition-transform shadow">
@@ -264,7 +266,7 @@
                     <div class="bg-gradient-to-tr from-pink-50 to-pink-100 border border-pink-100 rounded-3xl p-4 relative overflow-hidden shadow-sm">
                         <p class="text-[9px] font-black text-brand-pinkDark mb-0.5">💌 完走した先輩からの手紙</p>
                         <p class="text-[11px] text-slate-600 font-bold leading-relaxed">
-                            「最初は緊張して、余計なお世話かもって躊躇したけど、1回ありがとうって言うだけで脳が幸福で満たされていくのが分かったよ。14日間で一生ものの自信に変わるのを信じてみてね！」
+                            「最初は緊張して、余計なお世話かもって躊躇したけど、1回笑顔でお礼を言うだけで脳が幸福で満たされていくのが分かったよ。14日間で一生ものの自信に変わるのを信じてみてね！」
                             <span class="block text-[8px] text-slate-400 font-normal mt-1">— 卒業生：さきさん (Day 14クリア)</span>
                         </p>
                     </div>
@@ -356,7 +358,7 @@
                     <!-- Decorative Mascot Image -->
                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border border-pink-100 relative bg-white flex items-center justify-center">
                         <span class="absolute text-2xl z-0">🧞‍♂️</span>
-                        <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                        <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
                     </div>
 
                     <div class="space-y-1">
@@ -398,7 +400,7 @@
                     <div class="space-y-2">
                         <div>
                             <label class="block text-[9px] text-slate-400 mb-1">お名前（タイムラインで表示されます）</label>
-                            <input type="text" id="settings-name" class="w-full bg-slate-50 border border-slate-100 rounded-xl p-2 text-xs text-slate-700 font-semibold focus:outline-none" value="ひろき">
+                            <input type="text" id="settings-name" onchange="updateProfileName(this.value)" class="w-full bg-slate-50 border border-slate-100 rounded-xl p-2 text-xs text-slate-700 font-semibold focus:outline-none" value="ひろき">
                         </div>
                     </div>
                 </div>
@@ -427,7 +429,7 @@
                         <span class="text-[7px] bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-300 font-black">デモ</span>
                     </div>
                     <p class="text-[9px] text-slate-400 leading-relaxed font-semibold">
-                        「14日間チャレンジ」完走後、次のチャレンジャー1人分の魔法提供費（3,000円）を代わりに奢ってあげる「恩送りモデル」や、魔神への投げ銭を体験できます。
+                        「14日間チャレンジ」完走後、次のチャレンジャー1人分の魔法提供費（3,000円）を代わりに奢ってあげる「恩送りモデル」や、ステップンへの投げ銭を体験できます。
                     </p>
                     <div class="grid grid-cols-2 gap-2 text-center text-[10px]">
                         <button onclick="triggerPayment('payforward')" class="bg-white hover:bg-slate-50 text-brand-pinkDark font-black p-2.5 rounded-2xl border border-pink-100 flex flex-col items-center justify-center space-y-1 transition active:scale-95 shadow-sm">
@@ -499,7 +501,7 @@
                     <!-- Icon Avatar representation inside details modal -->
                     <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-300 bg-white flex items-center justify-center relative">
                         <span class="absolute text-xl z-0">🧞‍♂️</span>
-                        <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                        <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
                     </div>
                     <span>ステップンの応援アドバイス (Gemini AI)：</span>
                 </div>
@@ -536,7 +538,7 @@
             
             <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-md relative bg-white flex items-center justify-center animate-bounce">
                 <span class="absolute text-4xl z-0">🧞‍♂️</span>
-                <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                <img src="Jenie.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン" onerror="this.style.opacity='0';">
             </div>
 
             <div class="space-y-0.5">
@@ -578,43 +580,69 @@
                 {
                     date: '2026-07-02',
                     dayNum: 1,
-                    title: 'お礼の魔法 🤝',
-                    action: '通勤中に、駅員さんに笑顔で「ありがとうございます！」と挨拶した。',
-                    feeling: '少し恥ずかしかったが、言った瞬間すごくスッキリした！',
-                    change: '駅員さんが嬉しそうに会釈し返してくれ、一日中ごきげんに過ごせた。',
-                    laterChange: '3日後の今日、その駅員さんが私の顔を見て微笑みかけてくれた！魔法の効果は遅れてやってくる！'
+                    title: '電車で席を譲る魔法 🤝',
+                    action: '通勤中に、優先席付近で困っているおばあちゃんにサッと笑顔でお席を譲ることができた！',
+                    feeling: '気持ち：すっきり',
+                    change: 'おばあちゃんが何度も「ありがとう」と言ってくれて、心がすごく温かくなった！',
+                    laterChange: '3日後の今日、また同じ電車でお会いして、にこにこ会釈をしてくれました。優しさは巡ります！'
                 }
             ],
+            // Updated exact missions as requested
             missions: {
                 1: {
-                    title: "店員さんに「ありがとう」を贈る魔法",
-                    shortDesc: "近くのコンビニや飲食店の店員さんに、いつもよりちょっと笑顔で『ありがとう』を言ってみる。",
-                    longDesc: "日常、お会計の時と言葉を交わすコンビニやレストランの店員さん。彼らに対して、ただの作業ではなく、1秒間だけ目を合わせて「ありがとうございます」と声に出して伝えてみてください。一歩を踏み出す最初の小さなステップです。",
-                    hardChallenge: "さらに、相手の目をしっかり見て、1回だけ「極上の笑顔」を添えてみてください！"
+                    title: "電車で席を譲る魔法 🤝",
+                    shortDesc: "電車やバスに乗ったら、お年寄りや困っている人にスッと優しくお席を譲ってみる。",
+                    longDesc: "「余計なお世話かも」という躊躇や「断られたらどうしよう」という恥ずかしさを超える魔法。ヒーローになったつもりで、言葉を使わず『どうぞ！』と一歩引いてスペースを開けるだけでも素晴らしい魔法です。",
+                    hardChallenge: "お腹の大きそうな妊婦さんや、大きな荷物を持った方に『こちらどうぞ！』と自分から元気に声をかけてお席を譲る。"
                 },
                 2: {
-                    title: "周囲の素敵を見つける観察の魔法",
-                    shortDesc: "通勤・通学中、下を向かずに周りの人の靴やカバンを観察し、一番お洒落な人を探してみる。",
-                    longDesc: "スマホばかりを見て下を向く日常から解放されてみましょう。電車やバスで、周りの乗客の持ち物（靴、鞄、キーホルダーなど）をこっそり見つめ、「今日一番のおしゃれ大賞」を心の中で勝ために決定してください。他人に向けたポジティブな興味を持つ魔法です。",
-                    hardChallenge: "もしその人が落とし物をしたり、困っていたら、スッと『大丈夫ですか？』と声をかけてみましょう！"
+                    title: "赤ちゃんに微笑みかける魔法 👶",
+                    shortDesc: "街中や電車で出会った赤ちゃんや小さなお子さんに、言葉を使わず優しく微笑みかけてみる。",
+                    longDesc: "赤ちゃんは大人の表情の魔法をとても繊細に感じ取ります。スマホをポケットにしまい、目の前のかわいい生命に向かって、言葉は交わさずアイコンタクトでそっとあたたかい笑顔を贈ってあげましょう。",
+                    hardChallenge: "もし赤ちゃんがこちらをじっと見つめ返してくれたら、小さく優しく手を振って極上のスマイルを届ける。"
                 },
                 3: {
-                    title: "優先席を笑顔で譲る魔法",
-                    shortDesc: "電車やバスに乗ったら、優先席の近くに立ち『いつでも席を譲れるスーパーヒーロー』になりきってみる。",
-                    longDesc: "席を譲るのが恥ずかしい、おせっかいと思われるかも…それを超える秘密の魔法です。優先席付近に立ち、心の中で『俺はいつでも弱きを助けるスーパーヒーローだ』とポーズをとります。譲る・譲らないは自由！その準備の心そのものが美しい魔法です。",
-                    hardChallenge: "実際に高齢の方や困っている人に、言葉を使わず「どうぞ！」とスッと1歩引いてスペースを開ける。"
-                },
-                4: {
-                    title: "嫌いな人（苦手な人）にジュースを奢る魔法",
-                    shortDesc: "苦手だなと感じる同僚や知り合いに、缶コーヒーやジュースを「余分に買ったのでどうぞ」と差し出してみる。",
-                    longDesc: "人間関係のわだかまりを消す強力なスモールステップ。苦手な相手に敢えて親切にすることで、「自分はあの人に寛容な人間だ」と脳に辻褄合わせを起こさせます。小さな缶コーヒーが、関係性を劇的に溶かす魔法の鍵になります。",
-                    hardChallenge: "さらに「いつもお疲れ様です」と目を見て笑顔でボトルを差し出してみましょう。"
+                    title: "嫌いな人にジュースを奢ってみる魔法 🥤",
+                    shortDesc: "ちょっと苦手だなと感じる同僚や知り合いに、缶ジュースを『どうぞ』と差し出してみる。",
+                    longDesc: "「行動が先、感情は後（ジェームズ=ランゲ説）」を応用した驚異の魔法。苦手な相手に敢えて親切を届けることで、脳が辻褄を合わせようと相手への苦手意識をすっと和らげます。缶コーヒー1つが関係性の扉を開けます。",
+                    hardChallenge: "「いつもお疲れ様です！これ余分に買ったのでどうぞ」と相手の目を2秒しっかり見て、笑顔を添えて渡す。"
                 }
             },
             mockFeed: [
-                { id: 1, name: "あおぞら冒険者", avatar: "🐫", date: "数時間前", action: "喫茶店のドアを開けて、後ろの人が通り抜けるのを笑顔で待った！", feeling: "自分の小さな行動で『ありがとう』と言われ、誇らしかった。", change: "気持ちが軽くなり、自分も他人も全員優しくなればいいなと思った。" },
-                { id: 2, name: "オアシスの風", avatar: "🦅", date: "1日前", action: "スーパーのレジで、荷物の少ないおばあちゃんに「先どうぞ」と順番を譲った。", feeling: "ドギマギしたけれど、すんなり受け入れてもらえて安心した！", change: "『断られたらどうしよう』という恐怖心が単なる思い込みだったと気づいた。" },
-                { id: 3, name: "ランプの魔法使い", avatar: "🧙‍♂️", date: "3日前", action: "オフィスの共有デスクのゴミを、誰にも言わずにスッと片付けた。", feeling: "誰にも気づかれない優越感がすごく心地よかった（笑）。", change: "数日後の今日、同僚が「デスク周りが綺麗になってる、誰がしたんだろう」と喜んでいて、心の中でガッツポーズした！" }
+                { 
+                    id: 101, 
+                    name: "あおぞら冒険者", 
+                    avatar: "🐫", 
+                    date: "数時間前", 
+                    action: "電車で席を譲る魔法を実行できた！", 
+                    feeling: "気持ち：すっきり", 
+                    change: "勇気を出して声をかけたら笑顔で『ありがとう』と言われて、自分の心が満たされた。",
+                    comments: [
+                        { name: "さきさん", avatar: "👩", text: "一歩踏み出せたのめちゃくちゃかっこいいです！" }
+                    ]
+                },
+                { 
+                    id: 102, 
+                    name: "オアシスの風", 
+                    avatar: "🦅", 
+                    date: "1日前", 
+                    action: "赤ちゃんに微笑みかける魔法を実行できた！", 
+                    feeling: "気持ち：ふわふわ", 
+                    change: "お母さんに抱っこされた赤ちゃんが、にこって笑い返してくれて最高の癒やしをもらいました。",
+                    comments: []
+                },
+                { 
+                    id: 103, 
+                    name: "ランプの魔法使い", 
+                    avatar: "🧙‍♂️", 
+                    date: "3日前", 
+                    action: "ちょっと苦手な同僚にジュースを奢ってみた！", 
+                    feeling: "気持ち：わくわく", 
+                    change: "最初は緊張したけど、相手が驚きつつ笑顔で受け取ってくれて、その後のデスクワークがずっと気楽にできた！",
+                    comments: [
+                        { name: "たかし", avatar: "👨", text: "すごい勇気！辻褄合わせの効果絶大ですね！" }
+                    ]
+                }
             ]
         };
 
@@ -676,9 +704,9 @@
         }
 
         function toggleDay() {
-            if (appState.currentDay === 1) {
-                appState.currentDay = 2;
-                showToast("🔮", "2日目の朝になりました！マイページタブから「心の自己分析シート」に入力できます。");
+            if (appState.currentDay < 3) {
+                appState.currentDay++;
+                showToast("🔮", `${appState.currentDay}日目の朝になりました！新ミッションがアンロックされました！`);
             } else {
                 appState.currentDay = 1;
                 showToast("🔮", "1日目の朝に戻りました。");
@@ -884,7 +912,7 @@
             loading.classList.remove('hidden');
             output.innerText = "";
 
-            const systemPrompt = `あなたは可愛らしく、人懐っこく、ユーザーの小さな一歩を全力で応援する靴の精霊「ステップン」です。口調は「〜だよ！」「〜だね！」「ステップ！」など、元気で親しみやすいキャラクターです。説教臭さは一切ありません。「${appState.userName}」をちゃん付けで呼び、ミッション「${currentDayMission.title}」をやり遂げるべき理由と、心理的ハードルを下げるとびきり可愛いアドバイスを、180文字以内でポジティブに語りかけてください。`;
+            const systemPrompt = `あなたは人間の一歩を応援する靴の精霊「ステップン」です。口調は「〜だよ！」「〜だね！」「ステップ！」など、元気で親しみやすいキャラクターです。説教臭さは一切ありません。「${appState.userName}」をちゃん付けで呼び、ミッション「${currentDayMission.title}」をやり遂げるべき理由と、心理的ハードルを下げるとびきり可愛いアドバイスを、180文字以内でポジティブに語りかけてください。`;
             const userQuery = `今日の一歩「${currentDayMission.title}」に関するアドバイスをください！`;
 
             const successCallback = (generatedText) => {
@@ -893,10 +921,9 @@
 
             const fallbackCallback = () => {
                 const localResponses = {
-                    1: `「わあ！${appState.userName}ちゃん、お礼を言うのは魔法の第一歩だよ！店員さんに『ありがとう』って言うと、相手も ${appState.userName}ちゃんも、両方の心がぽかぽかの綿あめみたいになっちゃうんだ。恥ずかしかったら、僕がスニーカーのなかで足をパタパタさせて応援してるからね！いってらっしゃい！」`,
-                    2: `「スマホをポケットにしまって、顔をあげてごらん！おしゃれ観察のステップだよ！${appState.userName}ちゃん、街の人の『お気に入り』を見つけて勝手に大賞を決めちゃうんだ。誰かの好きを応援するだけで、世界がキラキラのキャンディみたいに輝きだすよ！ステップ！」`,
-                    3: `「いつでも譲れるポーズステップだね！実際に席を譲らなくてもいいんだよ！心の中でヒーローのマントをなびかせて『いつでもいけるぞ！』ってポーズをとるだけで、${appState.userName}ちゃんからかっこいいオーラが出ちゃうんだ。その意識だけで今日の一歩は大成功だよ！」`,
-                    4: `「自分をめいっぱい甘やかすステップ！大好物を食べて『自分、天才！』って心で大さばきするんだよ！まずは ${appState.userName}ちゃん自身のエネルギーを満たさないと、誰かを救う魔法は使えないからね。ケーキを食べてお腹をぽんぽん叩いて喜んじゃおう！」`
+                    1: `「わあ！${appState.userName}ちゃん、お席をスッと譲る一歩、とっても素敵だよ！『余計なお世話かも』って躊躇しちゃったら、心の中でマントをシュパッと羽織って、小さな声で『どうぞ』って引くだけでも大丈夫。お主からカッコいいオーラが溢れちゃうステップ！」`,
+                    2: `「赤ちゃんへの微笑みかけ魔法だね！スマホからそっとお顔をあげて、目の前のかわいい命に向かって優しくにっこり微笑んでみて。赤ちゃんも周りのお母さんも、みんなの心がふわふわ優しくなっちゃうんだよ。ステップ！」`,
+                    3: `「苦手な相手へ缶ジュースを奢る一歩！これね、心理学の最高に面白い裏技なんだよ。行動を先に起こすことで、脳が自動的に辻褄を合わせて、いつの間にか苦手だった気持ちがすっきり軽くなっちゃうんだ。ジュースを一本差し出すだけで、世界に大きな魔法がかかっちゃうぞ！」`
                 };
                 output.innerText = localResponses[appState.currentDay] || localResponses[1];
             };
@@ -959,15 +986,15 @@
         }
 
         // Feeling picker
-        let chosenFeeling = '😊';
+        let chosenFeeling = 'すっきり';
         function selectFeeling(btn, feeling) {
             chosenFeeling = feeling;
             document.querySelectorAll('.feeling-btn').forEach(b => {
-                b.classList.remove('border-brand-pink', 'bg-pink-50');
-                b.classList.add('border-transparent', 'bg-slate-50');
+                b.classList.remove('border-brand-pink', 'bg-pink-50', 'text-brand-pinkDark');
+                b.classList.add('border-transparent', 'bg-slate-50', 'text-slate-500');
             });
-            btn.classList.remove('border-transparent', 'bg-slate-50');
-            btn.classList.add('border-brand-pink', 'bg-pink-50');
+            btn.classList.remove('border-transparent', 'bg-slate-50', 'text-slate-500');
+            btn.classList.add('border-brand-pink', 'bg-pink-50', 'text-brand-pinkDark');
         }
 
         // Submitting Daily Magic Journal record
@@ -984,7 +1011,8 @@
                 action: chosenStatus === 'yes' ? `${currentDayMission.title}を実行できた！` : `今日はミッションができなかった💦`,
                 feeling: `気持ち：${chosenFeeling}`,
                 change: memo ? memo : "特に変化なし",
-                laterChange: ""
+                laterChange: "",
+                comments: []
             };
 
             const existingIdx = appState.pastRecords.findIndex(r => r.dayNum === appState.currentDay);
@@ -1036,15 +1064,28 @@
             showToast("🔓", "広場がアンロックされました！");
         }
 
+        // Render Timeline with Interactive Comments
         function renderTimeline() {
             const container = document.getElementById('timeline-posts-container');
             container.innerHTML = "";
 
-            // If user recorded today
+            // User post rendering
             const todayRecord = appState.pastRecords.find(r => r.dayNum === appState.currentDay);
             if (todayRecord) {
                 const userPost = document.createElement('div');
-                userPost.className = "bg-pink-50/50 border border-pink-100 rounded-3xl p-4 space-y-2 relative";
+                userPost.className = "bg-pink-50/50 border border-pink-100 rounded-3xl p-4 space-y-2.5 relative";
+                
+                // Comments HTML for user's post
+                let commentsHTML = "";
+                const recordComments = todayRecord.comments || [];
+                recordComments.forEach(comm => {
+                    commentsHTML += `
+                        <div class="bg-white/80 p-2 rounded-2xl text-[10px] text-slate-600 font-bold border border-pink-50">
+                            <span class="text-brand-pinkDark">${comm.avatar} ${comm.name}</span>: ${comm.text}
+                        </div>
+                    `;
+                });
+
                 userPost.innerHTML = `
                     <div class="absolute top-2 right-2 bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black">あなた</div>
                     <div class="flex items-center space-x-2">
@@ -1059,14 +1100,36 @@
                         <p><strong>気持ち：</strong> ${todayRecord.feeling}</p>
                         <p><strong>変化：</strong> ${todayRecord.change}</p>
                     </div>
+
+                    <!-- Inner Comments list -->
+                    <div class="mt-2 space-y-1 bg-pink-100/30 p-2.5 rounded-2xl border border-pink-100/50">
+                        <p class="text-[9px] text-slate-400 font-black mb-1">コメント (${recordComments.length})</p>
+                        <div class="space-y-1" id="comments-box-user">${commentsHTML}</div>
+                        <!-- Reply input -->
+                        <div class="flex space-x-1 mt-1.5">
+                            <input type="text" id="reply-input-user" class="flex-1 bg-white border border-pink-100 rounded-xl px-2.5 py-1 text-[9px] text-slate-700 focus:outline-none" placeholder="コメントを返す...">
+                            <button onclick="postCommentToUserRecord()" class="bg-brand-pink text-white px-3 py-1 rounded-xl text-[8px] font-black hover:bg-brand-pinkDark transition">返信</button>
+                        </div>
+                    </div>
                 `;
                 container.appendChild(userPost);
             }
 
-            // Render mocks
+            // Mock Feeds rendering
             appState.mockFeed.forEach(post => {
                 const feedCard = document.createElement('div');
-                feedCard.className = "bg-white border border-pink-50 rounded-3xl p-4 space-y-2 shadow-sm";
+                feedCard.className = "bg-white border border-pink-50 rounded-3xl p-4 space-y-2.5 shadow-sm";
+                
+                let commentsHTML = "";
+                const postComments = post.comments || [];
+                postComments.forEach(comm => {
+                    commentsHTML += `
+                        <div class="bg-slate-50 p-2 rounded-2xl text-[10px] text-slate-600 font-bold border border-slate-100">
+                            <span class="text-brand-pinkDark">${comm.avatar} ${comm.name}</span>: ${comm.text}
+                        </div>
+                    `;
+                });
+
                 feedCard.innerHTML = `
                     <div class="flex items-center space-x-2">
                         <span class="text-2xl">${post.avatar}</span>
@@ -1080,9 +1143,70 @@
                         <p><strong class="text-slate-400">💭 気持ち：</strong> ${post.feeling}</p>
                         <p><strong class="text-brand-pinkDark">✨ 変化：</strong> ${post.change}</p>
                     </div>
+
+                    <!-- Inner Comments box for mocks -->
+                    <div class="mt-2 space-y-1 bg-slate-50/50 p-2.5 rounded-2xl border border-slate-100">
+                        <p class="text-[9px] text-slate-400 font-black mb-1">コメント (${postComments.length})</p>
+                        <div class="space-y-1" id="comments-box-${post.id}">${commentsHTML}</div>
+                        <!-- Reply input -->
+                        <div class="flex space-x-1 mt-1.5">
+                            <input type="text" id="reply-input-${post.id}" class="flex-1 bg-white border border-pink-100 rounded-xl px-2.5 py-1 text-[9px] text-slate-700 focus:outline-none" placeholder="コメントを返す...">
+                            <button onclick="postCommentToMock(${post.id})" class="bg-brand-pink text-white px-3 py-1 rounded-xl text-[8px] font-black hover:bg-brand-pinkDark transition">返信</button>
+                        </div>
+                    </div>
                 `;
                 container.appendChild(feedCard);
             });
+        }
+
+        // Post custom comments to user record
+        function postCommentToUserRecord() {
+            const input = document.getElementById('reply-input-user');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const todayRecord = appState.pastRecords.find(r => r.dayNum === appState.currentDay);
+            if (todayRecord) {
+                if (!todayRecord.comments) todayRecord.comments = [];
+                todayRecord.comments.push({
+                    name: appState.userName,
+                    avatar: appState.selectedAvatar,
+                    text: text
+                });
+                saveState();
+                input.value = "";
+                renderTimeline();
+                showToast("💬", "温かい返信コメントを送信しました！");
+            }
+        }
+
+        // Post custom comments to Mock feeds
+        function postCommentToMock(postId) {
+            const input = document.getElementById(`reply-input-${postId}`);
+            const text = input.value.trim();
+            if (!text) return;
+
+            const post = appState.mockFeed.find(p => p.id === postId);
+            if (post) {
+                if (!post.comments) post.comments = [];
+                post.comments.push({
+                    name: appState.userName,
+                    avatar: appState.selectedAvatar,
+                    text: text
+                });
+                saveState();
+                input.value = "";
+                renderTimeline();
+                showToast("💬", "温かい応援コメントを送信しました！");
+            }
+        }
+
+        function updateProfileName(newName) {
+            if (newName.trim()) {
+                appState.userName = newName.trim();
+                saveState();
+                renderTimeline();
+            }
         }
 
         function renderCalendar() {
