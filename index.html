@@ -3,189 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAGIC JOURNEY - 魔法の一歩</title>
+    <title>MAGIC JOURNEY - 毎日の小さな一歩が、心に小さな魔法をかけていく</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: M PLUS Rounded 1c -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#f48fb1',
+                            pinkLight: '#fff1f3',
+                            pinkDark: '#c2185b',
+                            gold: '#fbbf24',
+                            goldLight: '#fef3c7',
+                            slate: '#334155',
+                            bg: '#fdfbf7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: M PLUS Rounded 1c (Soft and friendly gothic) -->
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --color-bg-base: #fffbf0;
-            --color-text-main: #4a4a4a;
-            --color-text-sub: #8b8b8b;
-            --color-accent: #f48fb1;
-            --color-accent-light: #fce4ec;
-            --color-gold: #fbc02d;
-            --color-card: #ffffff;
-            --color-nav-bg: rgba(255, 255, 255, 0.95);
-        }
-        
         body {
             font-family: 'M PLUS Rounded 1c', sans-serif;
-            background-color: #f7f7f7;
-            color: var(--color-text-main);
+            background-color: #f7fee7;
         }
 
-        /* 🪄 ぽってり温かいコンテナ設定 */
-        .app-container {
-            background-color: var(--color-bg-base);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #fffbf0 80%);
+        /* Smooth fade-in transition */
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🪄 なでなでランプのアニメーション */
-        @keyframes gentle-shake {
+        /* Float animation for mascot stepun */
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .stepun-float {
+            animation: gentle-float 4s ease-in-out infinite;
+        }
+
+        /* Shake animation for the lamp when rubbing */
+        @keyframes lamp-shake {
             0%, 100% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(-5deg) scale(1.02); }
-            75% { transform: rotate(5deg) scale(0.98); }
+            20% { transform: rotate(-6deg) scale(1.03); }
+            40% { transform: rotate(5deg) scale(0.97); }
+            60% { transform: rotate(-4deg) scale(1.01); }
+            80% { transform: rotate(3deg) scale(0.99); }
         }
-        .shaking-lamp {
-            animation: gentle-shake 0.4s ease-in-out infinite;
-        }
-
-        /* 🪄 ステップンの感情アニメーション（CSSのみで画像を生き生きさせる） */
-        .stepun-sleeping {
-            opacity: 0.7;
-            transform: scale(0.95) translateY(10px);
-            filter: grayscale(20%);
-            transition: all 0.8s ease;
-        }
-        .stepun-awake {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            filter: grayscale(0%);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes happy-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px) scale(1.05); }
-        }
-        .stepun-happy {
-            animation: happy-bounce 1s ease-in-out infinite;
+        .shake-lamp {
+            animation: lamp-shake 0.3s ease-in-out infinite;
         }
 
-        /* 🪄 魔法のパーティクル */
-        .magic-dust {
-            position: absolute;
-            background: radial-gradient(circle, #fbc02d 0%, rgba(251, 192, 45, 0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: dust-float 1.5s ease-out forwards;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
         }
-        @keyframes dust-float {
-            0% { transform: translateY(0) scale(0); opacity: 1; }
-            100% { transform: translateY(-80px) translateX(var(--random-x)) scale(1.5); opacity: 0; }
+        ::-webkit-scrollbar-track {
+            background: transparent;
         }
-
-        /* 🪄 隠しスクロールバー */
-        ::-webkit-scrollbar { width: 0px; }
+        ::-webkit-scrollbar-thumb {
+            background: #f48fb1;
+            border-radius: 99px;
+        }
     </style>
 </head>
 <body class="flex justify-center items-center min-h-screen">
 
-    <!-- 📱 スマホサイズのメインキャンバス -->
-    <div class="app-container relative w-full max-w-md h-[920px] overflow-hidden flex flex-col border border-gray-100 rounded-[40px] sm:rounded-[40px] rounded-none">
+    <!-- 📱 Mobile View Container -->
+    <div class="relative w-full max-w-md h-[920px] bg-brand-bg shadow-2xl overflow-hidden flex flex-col border border-pink-100 rounded-[42px]">
         
-        <!-- 🌟 ヘッダー (ロゴ画像使用) -->
-        <header class="w-full bg-[var(--color-nav-bg)] backdrop-blur-md px-5 py-4 flex items-center justify-between border-b border-pink-50 z-30">
-            <div class="flex items-center space-x-3">
-                <!-- 🖼️ 左上アイコン画像 -->
-                <div class="w-10 h-10 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white flex items-center justify-center">
-                    <img src="logo.png" alt="ロゴ" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/fce4ec/f48fb1?text=Logo'">
+        <!-- Header -->
+        <header class="w-full bg-white/95 backdrop-blur-md px-5 py-3 flex items-center justify-between border-b border-pink-50 z-30">
+            <div class="flex items-center space-x-2">
+                <!-- Brand logo from Screenshot 2026-07-03 18.54.09.png -->
+                <div class="w-9 h-9 rounded-full overflow-hidden border border-pink-200 shadow-sm bg-pink-50 flex items-center justify-center relative">
+                    <!-- Backup SVG Icon: Displayed behind the image to prevent white/broken boxes -->
+                    <span class="absolute text-xl z-0">🧞‍♂️</span>
+                    <img src="スクリーンショット 2026-07-03 18.54.09.png" class="w-full h-full object-cover relative z-10" alt="ロゴ">
                 </div>
                 <div>
-                    <h1 class="text-sm font-black text-slate-700 tracking-wide">MAGIC JOURNEY</h1>
-                    <p class="text-[9px] text-[var(--color-accent)] font-bold">14日間の心のエクササイズ</p>
+                    <h1 class="text-xs font-black tracking-wider text-brand-pinkDark">MAGIC JOURNEY</h1>
+                    <p class="text-[9px] text-slate-400 font-bold">14日間の心のエクササイズ</p>
                 </div>
             </div>
-            <!-- デモ用 日数切替 -->
-            <button onclick="toggleDay()" id="day-badge" class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-[10px] font-black shadow-sm active:scale-95 transition">Day 1</button>
+            
+            <!-- Quick Demo Day Switcher -->
+            <div class="flex items-center space-x-1.5 bg-pink-50/80 px-2.5 py-1 rounded-full border border-pink-100 shadow-inner">
+                <span id="day-badge" class="font-black text-[10px] text-brand-pinkDark mr-1">Day 1</span>
+                <button onclick="toggleDay()" class="bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-brand-pinkDark active:scale-95 transition-transform" title="1日目と2日目の切り替え">日めくり</button>
+                <button onclick="resetApp()" class="bg-amber-400 text-slate-800 text-[8px] px-2 py-0.5 rounded-full font-black hover:bg-amber-500 active:scale-95 transition-transform" title="ランプをこすり直す">リセット</button>
+            </div>
         </header>
 
-        <!-- 📜 メインコンテンツ領域 -->
+        <!-- Main Content Area -->
         <main class="flex-1 overflow-y-auto pb-24 relative z-10">
 
             <!-- ========================================== -->
-            <!-- 🔮 タブ1: 今日の魔法 (メイン画面) -->
+            <!-- 🔮 TAB 1: TODAY'S MAGIC (MAIN RUB SCREEN) -->
             <!-- ========================================== -->
-            <section id="tab-today" class="tab-content p-6 flex flex-col items-center space-y-6">
+            <section id="tab-today" class="tab-content p-6 flex flex-col items-center space-y-5 animate-fade-in">
                 
-                <!-- 🧚‍♂️ ステップン キャラクターエリア -->
-                <div class="relative w-full flex flex-col items-center justify-center mt-4">
+                <!-- Initial State: Rubbing the Magic Lamp -->
+                <div id="section-rub" class="w-full flex flex-col items-center space-y-4">
                     
-                    <!-- 💬 吹き出し (すやすや画像) -->
-                    <div id="stepun-bubble" class="mb-2 h-12 flex items-end justify-center transition-opacity duration-300">
-                        <img src="sleep_bubble.jpg" id="img-bubble" class="h-full object-contain drop-shadow-sm" alt="吹き出し" onerror="this.src='https://placehold.co/200x50/ffffff/f48fb1?text=すやすや...'">
-                    </div>
-
-                    <!-- 🧚‍♂️ ステップン本体画像 -->
-                    <div class="relative w-40 h-40 z-20">
-                        <!-- グロウ効果 -->
-                        <div class="absolute inset-0 bg-blue-100 rounded-full blur-2xl opacity-60"></div>
-                        <img id="img-stepun" src="stepun.jpg" class="relative w-full h-full object-contain stepun-sleeping" alt="ステップン" onerror="this.src='https://placehold.co/200x200/e0f7fa/00acc1?text=Stepun'">
-                    </div>
-                </div>
-
-                <!-- 🪔 ランプなでなでゾーン -->
-                <div id="lamp-section" class="w-full flex flex-col items-center space-y-4">
-                    <div id="lamp-touch-zone" class="relative w-full h-48 flex justify-center items-center cursor-grab active:cursor-grabbing select-none">
-                        <!-- 🪔 本物のランプ画像 -->
-                        <img id="img-lamp" src="lamp.png" class="w-48 object-contain drop-shadow-[0_15px_15px_rgba(251,192,45,0.2)] z-20 transition-transform duration-100" alt="魔法のランプ" onerror="this.src='https://placehold.co/200x150/fff9c4/fbc02d?text=Lamp'">
-                        <!-- スワイプ案内 -->
-                        <div class="absolute bottom-0 text-[10px] font-black text-amber-500 bg-amber-50 px-4 py-1.5 rounded-full border border-amber-100 animate-pulse z-10">
-                            ✨ 左右に優しくなでてね ✨
+                    <!-- Balloon: Stepun Speaking -->
+                    <div class="w-full max-w-[280px] bg-white border border-pink-100 rounded-3xl p-3 text-center shadow-sm relative animate-pulse">
+                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r border-b border-pink-100 rotate-45"></div>
+                        <!-- Screenshot 2026-07-02 23.39.56.jpg contains 'すやすや...いい夢みてるよ...' -->
+                        <!-- If bubble image loaded, it overlays neatly over the text -->
+                        <div class="relative w-full h-8 flex items-center justify-center">
+                            <span class="absolute text-xs font-black text-brand-pinkDark z-0">すやすや... いい夢みてるよ...💤</span>
+                            <img src="スクリーンショット 2026-07-02 23.39.56.jpg" id="stepun-bubble-img" class="absolute max-h-full object-contain z-10" alt="吹き出し" onerror="this.classList.add('hidden')">
                         </div>
                     </div>
-                    
-                    <!-- なでなでプログレスバー -->
-                    <div class="w-4/5 space-y-1.5">
-                        <div class="w-full h-3 bg-white rounded-full border border-gray-100 overflow-hidden shadow-inner">
-                            <div id="rub-progress" class="w-0 h-full bg-gradient-to-r from-amber-300 to-pink-400 transition-all duration-300 rounded-full"></div>
+
+                    <!-- Stepun Mascot Avatar (Screenshot_2026-07-02 23.35.16_3.png) -->
+                    <div class="relative w-44 h-44 flex items-center justify-center stepun-float">
+                        <!-- Glowing circular ring background -->
+                        <div class="absolute inset-0 bg-pink-200/40 rounded-full blur-2xl scale-95 transition-all"></div>
+                        <div class="absolute inset-2 bg-gradient-to-tr from-pink-300 via-pink-400 to-amber-300 rounded-full p-1 shadow-inner">
+                            <div class="w-full h-full bg-white rounded-full overflow-hidden flex items-center justify-center relative">
+                                <!-- Backup SVG Mascot icon so that there's NEVER a broken image placeholder -->
+                                <span class="absolute text-5xl z-0">🧞‍♂️</span>
+                                <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="absolute w-full h-full object-cover z-10 transition-transform" alt="ステップン">
+                            </div>
                         </div>
-                        <p id="rub-text" class="text-center text-[10px] text-gray-400 font-bold">ステップンを起こそう...</p>
                     </div>
+
+                    <!-- Interactive Magic Lamp Swipe Zone (Screenshot_2026-07-02_23.35.11-removebg-preview.png) -->
+                    <div id="lamp-touch-zone" class="relative w-full h-48 bg-pink-50/20 rounded-3xl border border-dashed border-pink-100 flex items-center justify-center select-none cursor-grab active:cursor-grabbing">
+                        <canvas id="smoke-canvas" class="absolute inset-0 pointer-events-none z-20"></canvas>
+                        
+                        <!-- Beautiful Golden Lamp -->
+                        <div id="lamp-wrapper" class="relative w-52 h-36 flex items-center justify-center transition-transform z-10">
+                            <!-- Backup SVG Lamp vector so that there's NEVER a blank yellow square -->
+                            <svg class="absolute w-36 h-24 opacity-25 z-0" viewBox="0 0 100 60" fill="currentColor"><path d="M10 40 Q40 50 80 30 Q90 10 50 15 Z"/></svg>
+                            <img src="スクリーンショット_2026-07-02_23.35.11-removebg-preview.png" class="absolute w-full h-full object-contain z-10" alt="魔法のランプ">
+                        </div>
+
+                        <!-- Swipe Track Guidance indicator -->
+                        <div class="absolute bottom-3 bg-white/90 border border-pink-100 text-brand-pinkDark font-black text-[10px] px-4 py-1.5 rounded-full shadow-sm animate-bounce z-10">
+                            ✨ 左右に優しく10回なでなでしてね ✨
+                        </div>
+                    </div>
+
+                    <!-- Nice Round Progress Bar -->
+                    <div class="w-4/5 space-y-1">
+                        <div class="flex justify-between text-[10px] font-black text-slate-400">
+                            <span>ステップンのめざめ度</span>
+                            <span id="rub-percentage">0%</span>
+                        </div>
+                        <div class="w-full h-3.5 bg-white rounded-full overflow-hidden border border-pink-100 shadow-inner p-0.5">
+                            <div id="rub-progress-bar" class="w-0 h-full bg-gradient-to-r from-pink-400 to-amber-300 rounded-full transition-all duration-300"></div>
+                        </div>
+                        <p id="rub-status-text" class="text-center text-[10px] text-slate-400 font-bold">ステップンを起こしよう...</p>
+                    </div>
+
                 </div>
 
-                <!-- 🎁 ミッション開放＆簡単報告エリア (隠し) -->
-                <div id="mission-section" class="hidden w-full flex flex-col items-center space-y-5 animate-fade-in">
+                <!-- Unlocked State: Daily Magic Challenge Entry -->
+                <div id="section-magic-unlocked" class="hidden w-full flex flex-col items-center space-y-4 animate-fade-in">
                     
-                    <!-- ミッションカード -->
-                    <div class="w-full bg-white rounded-3xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-pink-50 relative overflow-hidden text-center">
-                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-300 to-pink-300"></div>
-                        <span class="text-[9px] font-black text-pink-400 tracking-widest">TODAY'S MAGIC</span>
-                        <h2 id="mission-title" class="text-lg font-black text-slate-700 mt-1 mb-2">挨拶の魔法</h2>
-                        <p id="mission-desc" class="text-xs text-gray-500 font-semibold leading-relaxed px-2">店員さんに、いつもよりちょっと笑顔で『ありがとう』を言ってみる。</p>
-                        <button onclick="openMagicGuide()" class="mt-4 text-[10px] font-black text-blue-500 bg-blue-50 px-4 py-2 rounded-full hover:bg-blue-100 transition">
+                    <!-- Congratulations greeting Card -->
+                    <div class="w-full bg-white rounded-3xl p-5 border border-pink-100 shadow-sm text-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-300 to-amber-300"></div>
+                        
+                        <!-- Mini Mascot Avatar -->
+                        <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-sm relative bg-pink-50 flex items-center justify-center mb-2">
+                            <span class="absolute text-2xl z-0">🧞‍♂️</span>
+                            <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                        </div>
+
+                        <span class="text-[9px] font-black text-brand-pink uppercase tracking-widest">Today's Magic</span>
+                        <h2 id="magic-title-display" class="text-md font-black text-slate-700 mt-0.5 mb-1.5"></h2>
+                        <p id="magic-preview-desc" class="text-[11px] text-slate-500 font-semibold leading-relaxed px-4"></p>
+                        
+                        <button onclick="openMagicDetails()" class="mt-3.5 text-[10px] font-black text-pink-500 bg-pink-50 border border-pink-100 px-4 py-2 rounded-full hover:bg-pink-100 transition-colors">
                             💡 ステップンの詳しいアドバイスを読む
                         </button>
                     </div>
 
-                    <!-- 📝 簡単！報告フォーム (Q2仕様変更対応) -->
-                    <div class="w-full bg-white rounded-3xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-50 space-y-4">
-                        <h3 class="text-sm font-black text-slate-700 text-center">魔法は使えた？ 🧙‍♀️</h3>
-                        
-                        <!-- 1. 達成ボタン -->
-                        <div class="flex justify-center space-x-3">
-                            <button onclick="toggleSelect(this, 'status')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-gray-100 text-xs font-bold text-gray-400 transition-all">できた！🙌</button>
-                            <button onclick="toggleSelect(this, 'status')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-gray-100 text-xs font-bold text-gray-400 transition-all">できなかった💦</button>
+                    <!-- Journal Input Section (F-02 Journaling & Simplified action confirmation) -->
+                    <div class="w-full bg-white rounded-3xl p-5 border border-pink-100 shadow-sm space-y-4">
+                        <h3 class="text-xs font-black text-slate-700 text-center">魔法は使えた？ 🧙‍♀️</h3>
+
+                        <!-- Yes or No status Buttons -->
+                        <div class="flex space-x-3">
+                            <button onclick="toggleSelectStatus(this, 'yes')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-pink-100 bg-pink-50/50 text-brand-pink font-black text-xs transition-all shadow-sm">できた！🙌</button>
+                            <button onclick="toggleSelectStatus(this, 'no')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-slate-100 text-slate-400 font-bold text-xs transition-all">できなかった💦</button>
                         </div>
 
-                        <!-- 2. 気持ちボタン -->
-                        <div class="space-y-2">
-                            <p class="text-[10px] font-bold text-gray-400 text-center">その時の気持ちは？</p>
-                            <div class="flex justify-between space-x-2">
-                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">😆</button>
-                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">😌</button>
-                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">💦</button>
-                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">🤔</button>
+                        <!-- Mood Picker -->
+                        <div class="space-y-1.5">
+                            <p class="text-[10px] font-black text-slate-400 text-center">その時のきもちは？</p>
+                            <div class="flex justify-between px-2">
+                                <button onclick="selectFeeling(this, '😊')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">😊</button>
+                                <button onclick="selectFeeling(this, '😌')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">😌</button>
+                                <button onclick="selectFeeling(this, '💦')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">💦</button>
+                                <button onclick="selectFeeling(this, '🤔')" class="feeling-btn text-2xl p-2 rounded-xl bg-slate-50 border-2 border-transparent transition-all hover:scale-110">🤔</button>
                             </div>
                         </div>
 
-                        <!-- 3. 一言メモ -->
-                        <textarea id="memo-input" class="w-full bg-gray-50 rounded-2xl p-3 text-xs font-semibold text-gray-600 placeholder-gray-400 border border-gray-100 focus:outline-none focus:border-pink-300 h-16" placeholder="（任意）どんな変化があった？"></textarea>
+                        <!-- Optional diary memo comment -->
+                        <div class="space-y-1">
+                            <label class="block text-[10px] font-black text-slate-400">気づいた変化やひとこと（自由入力）</label>
+                            <textarea id="memo-input" class="w-full bg-slate-50 border border-slate-100 rounded-2xl p-3 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-brand-pink transition h-14 font-semibold resize-none" placeholder="例：意外とすんなり喜んでもらえた！心もあったかくなったな。"></textarea>
+                        </div>
 
-                        <!-- 送信ボタン -->
-                        <button onclick="submitMagic()" class="w-full bg-slate-800 text-white font-black py-3.5 rounded-full shadow-lg hover:scale-[1.02] active:scale-95 transition-transform text-xs">
+                        <button onclick="submitMagicJournal()" class="w-full bg-slate-800 text-white font-black py-3.5 rounded-full shadow-lg shadow-slate-900/10 hover:scale-[1.01] active:scale-95 transition text-xs">
                             ステップンに報告する 🚀
                         </button>
                     </div>
@@ -194,367 +228,1012 @@
             </section>
 
             <!-- ========================================== -->
-            <!-- 💬 タブ2: コミュニティ -->
+            <!-- 💬 TAB 2: COMMUNITY (TIMELINE & BEREAL LOCK) -->
             <!-- ========================================== -->
-            <section id="tab-comm" class="tab-content p-6 hidden space-y-5">
-                <div class="text-center">
-                    <h2 class="text-lg font-black text-slate-700">みんなの魔法</h2>
-                    <p class="text-[10px] text-gray-400 font-bold mt-1">思いやりの連鎖を感じる場所</p>
+            <section id="tab-share" class="tab-content p-6 space-y-4 hidden animate-fade-in">
+                <div class="text-center pb-2 border-b border-pink-50">
+                    <h2 class="text-md font-black text-slate-700">みんなの魔法広場</h2>
+                    <p class="text-[9px] text-slate-400 font-bold mt-0.5">温かい親切と思いやりが循環する場所</p>
                 </div>
 
-                <!-- 🔒 ロック画面 (BeReal風) -->
-                <div id="comm-lock" class="flex flex-col items-center justify-center py-10 space-y-4 bg-white rounded-3xl border border-gray-100 shadow-sm">
-                    <div class="text-4xl">🔒</div>
-                    <p class="text-xs font-black text-slate-600 px-6 text-center leading-relaxed">
-                        自分の「魔法の報告」を完了すると<br>仲間の素敵な魔法が見られるよ！
-                    </p>
-                    <button onclick="switchTab('today')" class="text-[10px] bg-pink-50 text-pink-500 font-black px-4 py-2 rounded-full">今日の魔法へ戻る</button>
+                <!-- Locked Screen (BeReal Style lock) -->
+                <div id="timeline-locked-screen" class="flex flex-col items-center justify-center text-center py-10 px-4 space-y-4">
+                    <div class="relative flex items-center justify-center w-28 h-28 rounded-full border border-pink-100 bg-white shadow-sm">
+                        <!-- Stepun avatar cropped -->
+                        <div class="w-20 h-20 rounded-full overflow-hidden border border-pink-100 relative bg-pink-50 flex items-center justify-center">
+                            <span class="absolute text-4xl z-0">🧞‍♂️</span>
+                            <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10 grayscale opacity-70" alt="ステップン">
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 bg-brand-pink text-white w-6 h-6 rounded-full flex items-center justify-center border-2 border-white font-black text-xs shadow">🔒</div>
+                    </div>
+                    <div class="space-y-1.5 max-w-xs">
+                        <h3 class="text-xs font-black text-slate-700">魔法を放ち、扉を開けよう！</h3>
+                        <p class="text-[10px] text-slate-400 leading-relaxed font-semibold">
+                            「MAGIC JOURNEY」は安全なアウトプットを促すため、**自分が今日の魔法を完了（投稿）するまで**、他のメンバー of の報告を閲覧できない仕様になっています。
+                        </p>
+                    </div>
+                    <button onclick="switchTab('today')" class="bg-brand-pink text-white font-black text-[10px] px-6 py-2.5 rounded-full hover:bg-brand-pinkDark active:scale-95 transition-transform shadow">
+                        今日の魔法へ進む 🚀
+                    </button>
                 </div>
 
-                <!-- 🔓 タイムライン (報告後) -->
-                <div id="comm-feed" class="hidden space-y-4">
-                    <!-- 先輩からの手紙 (Q3のA案実装) -->
-                    <div class="bg-blue-50 border border-blue-100 rounded-3xl p-4 relative overflow-hidden shadow-sm">
-                        <div class="absolute -right-4 -bottom-4 text-6xl opacity-20">🕊️</div>
-                        <p class="text-[10px] font-black text-blue-500 mb-1">💌 卒業した先輩からの手紙</p>
-                        <p class="text-xs text-slate-600 font-semibold leading-relaxed">
-                            「最初は緊張するよね。でも、小さな一歩を踏み出した自分を、夜寝る前に思いっきり褒めてあげて！14日後には見える世界が変わってるよ。」<br>
-                            <span class="text-[9px] text-gray-400">— Day 14クリア済: みかさん</span>
+                <!-- Unlocked Real Timeline Content -->
+                <div id="timeline-unlocked-screen" class="hidden space-y-4">
+                    
+                    <!-- Letter from graduate senior (P3-Q3 Senior letter system) -->
+                    <div class="bg-gradient-to-tr from-pink-50 to-pink-100 border border-pink-100 rounded-3xl p-4 relative overflow-hidden shadow-sm">
+                        <p class="text-[9px] font-black text-brand-pinkDark mb-0.5">💌 完走した先輩からの手紙</p>
+                        <p class="text-[11px] text-slate-600 font-bold leading-relaxed">
+                            「最初は緊張して、余計なお世話かもって躊躇したけど、1回ありがとうって言うだけで脳が幸福で満たされていくのが分かったよ。14日間で一生ものの自信に変わるのを信じてみてね！」
+                            <span class="block text-[8px] text-slate-400 font-normal mt-1">— 卒業生：さきさん (Day 14クリア)</span>
                         </p>
                     </div>
 
-                    <!-- フィードアイテム -->
-                    <div class="bg-white border border-gray-100 rounded-3xl p-4 shadow-sm space-y-2">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-sm">👱‍♀️</div>
-                            <div>
-                                <p class="text-[11px] font-black text-slate-700">さくら <span class="text-[9px] text-gray-400 font-normal">2時間前</span></p>
-                                <p class="text-[9px] text-pink-400 font-bold">魔法：挨拶の魔法</p>
+                    <!-- Dynamic Timeline post list goes here -->
+                    <div id="timeline-posts-container" class="space-y-3"></div>
+                </div>
+
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 📅 TAB 3: PAST LOGS (MY MAGIC CALENDAR) -->
+            <!-- ========================================== -->
+            <section id="tab-past" class="tab-content p-6 space-y-4 hidden animate-fade-in">
+                <div class="text-center pb-2 border-b border-pink-50">
+                    <h2 class="text-md font-black text-slate-700">魔法の貯蔵庫</h2>
+                    <p class="text-[9px] text-slate-400 font-bold mt-0.5">これまでの軌跡と、遅れてやってきた変化</p>
+                </div>
+
+                <!-- Calendar Card -->
+                <div class="bg-white border border-pink-100 rounded-3xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-black text-slate-700">2026年 7月</span>
+                        <span class="text-[9px] bg-pink-50 border border-pink-100 px-2.5 py-0.5 rounded-full text-brand-pinkDark font-black">
+                            達成回数：<span id="calendar-count" class="font-extrabold">1</span>
+                        </span>
+                    </div>
+
+                    <!-- Calendar grid header -->
+                    <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-black text-slate-400 mb-1">
+                        <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 text-center text-xs"></div>
+                </div>
+
+                <!-- Detail View of Selected Past Day with Later impact update form (F-04) -->
+                <div id="past-detail-box" class="bg-white border border-pink-100 rounded-3xl p-5 shadow-sm space-y-3">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span id="past-date-tag" class="text-[9px] text-brand-pinkDark bg-pink-50 border border-pink-100 px-2.5 py-0.5 rounded-full font-black">7月2日 (Day 1)</span>
+                            <h3 id="past-title-tag" class="text-xs font-black text-slate-700 mt-1.5">挨拶の魔法</h3>
+                        </div>
+                        <span class="text-[9px] font-black text-emerald-500 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-full">✅ 達成</span>
+                    </div>
+
+                    <div class="text-[11px] space-y-2 border-t border-slate-100 pt-2 text-slate-600 font-semibold leading-relaxed">
+                        <p><strong>実行した魔法：</strong> <span id="past-action-text" class="text-slate-800">駅員さんにお礼をえがおで言えた！</span></p>
+                        <p><strong>その時の気持ち：</strong> <span id="past-feeling-text" class="text-slate-800">ドキドキしたけど、心がぽかぽか。</span></p>
+                        <p><strong>直後の変化：</strong> <span id="past-change-text" class="text-slate-800">駅員さんがすごく笑顔を返してくれた！</span></p>
+                    </div>
+
+                    <!-- Subsequent Reflection input (e.g. "3 days later effect") -->
+                    <div class="border-t border-dashed border-pink-100 pt-3 mt-1 space-y-2 bg-pink-50/20 p-3 rounded-2xl">
+                        <div class="flex items-center space-x-1">
+                            <span class="text-xs">⏳</span>
+                            <strong class="text-[10px] text-brand-pinkDark font-black">遅れてやってきた変化（後日談の追記）</strong>
+                        </div>
+                        
+                        <!-- Show saved later comments -->
+                        <div id="later-change-display" class="text-[10px] text-brand-pink bg-white border border-pink-100 p-2.5 rounded-xl hidden font-bold"></div>
+
+                        <!-- Update field -->
+                        <div class="flex space-x-1.5">
+                            <input type="text" id="input-later-change" class="flex-1 bg-white border border-pink-100 rounded-xl px-2.5 py-1.5 text-[10px] text-slate-700 placeholder-slate-400 focus:outline-none" placeholder="例：3日後の今日、その人が話しかけてくれた！">
+                            <button onclick="saveLaterChange()" class="bg-brand-pink text-white px-3.5 rounded-xl text-[9px] font-black hover:bg-brand-pinkDark active:scale-95 transition-transform">
+                                追記
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ========================================== -->
+            <!-- ⚙️ TAB 4: MY PAGE & DIAGNOSTIC (DAY 2 UNLOCKED) -->
+            <!-- ========================================== -->
+            <section id="tab-settings" class="tab-content p-6 space-y-5 hidden animate-fade-in">
+                <div class="text-center pb-2 border-b border-pink-50">
+                    <h2 class="text-md font-black text-slate-700">マイページ</h2>
+                    <p class="text-[9px] text-slate-400 font-bold mt-0.5">これまでの心の変化、プロフィールの設定</p>
+                </div>
+
+                <!-- Self Assessment Diagnostic (MBTI Style - Day 2+ lock) -->
+                <div id="diagnostic-notice-card" class="bg-gradient-to-tr from-pink-50/50 to-amber-50/50 border-2 border-dashed border-pink-100 p-4 rounded-3xl text-center space-y-3 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 bg-brand-pink text-white text-[7px] px-2.5 py-0.5 rounded-br-2xl font-black uppercase tracking-wider">Day 2 以降で解放</div>
+                    
+                    <!-- Decorative Mascot Image -->
+                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border border-pink-100 relative bg-white flex items-center justify-center">
+                        <span class="absolute text-2xl z-0">🧞‍♂️</span>
+                        <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                    </div>
+
+                    <div class="space-y-1">
+                        <h3 class="text-xs font-black text-slate-700">心の自己分析・きづき診断</h3>
+                        <p class="text-[9px] text-slate-400 leading-relaxed font-semibold px-4">
+                            ステップンがあなたにぴったりの魔法を処方できるように、今のあなたの状態を少しだけ教えてください。（いつでも回答・スキップ可能です）
+                        </p>
+                    </div>
+
+                    <!-- Interactive Diagnostic Form -->
+                    <div class="bg-white border border-pink-50 p-3 rounded-2xl text-left space-y-2.5 shadow-sm text-xs">
+                        <div>
+                            <div class="flex justify-between items-center text-[9px] text-slate-400 font-black mb-1">
+                                <span>Q1. 今の自分の自信度 (1〜10)</span>
+                                <span class="text-brand-pinkDark font-black text-[10px]" id="diagnostic-confidence-val">5</span>
+                            </div>
+                            <input type="range" id="diagnostic-confidence" min="1" max="10" value="5" oninput="document.getElementById('diagnostic-confidence-val').innerText = this.value" class="w-full accent-brand-pink">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] text-slate-400 font-black mb-1">Q2. 今悩んでいること、モヤモヤ（自由入力）</label>
+                            <textarea id="diagnostic-desc" class="w-full bg-slate-50 border border-slate-100 rounded-xl p-2 text-[10px] text-slate-700 placeholder-slate-400 h-10 focus:outline-none focus:border-brand-pink transition font-semibold" placeholder="例：おせっかいかも…と思って声がかけられない"></textarea>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pt-1 border-t border-slate-50 text-[8px] text-slate-400">
+                            <span id="diagnostic-save-status" class="font-bold">自動保存されます</span>
+                            <div class="space-x-1">
+                                <button onclick="saveDiagnostic()" class="bg-brand-pink text-white px-2 py-0.5 rounded-full font-black hover:bg-brand-pinkDark active:scale-95 transition-transform text-[8px]">保存</button>
+                                <button onclick="skipDiagnostic()" class="text-slate-400 px-1 py-0.5 hover:text-slate-600 transition">後で</button>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-600 font-semibold pl-10">達成！😆<br>店員さんが笑顔で返してくれて、こっちまで元気になった！</p>
-                        <div class="pl-10 pt-2 flex space-x-2">
-                            <button class="bg-gray-50 px-3 py-1 rounded-full text-[10px] font-bold text-gray-500 hover:bg-pink-50 hover:text-pink-500 transition">❤️ 素敵！</button>
+                    </div>
+                </div>
+
+                <!-- User Profile Form -->
+                <div class="bg-white border border-pink-100 rounded-3xl p-4 space-y-3 shadow-sm">
+                    <h3 class="text-xs font-black text-slate-700 border-b border-slate-50 pb-1.5 flex items-center space-x-1.5">
+                        <span>👤</span> <span>プロフィール</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-[9px] text-slate-400 mb-1">お名前（タイムラインで表示されます）</label>
+                            <input type="text" id="settings-name" class="w-full bg-slate-50 border border-slate-100 rounded-xl p-2 text-xs text-slate-700 font-semibold focus:outline-none" value="ひろき">
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- ========================================== -->
-            <!-- 📖 タブ3: わたしの記録 (カレンダー) -->
-            <!-- ========================================== -->
-            <section id="tab-record" class="tab-content p-6 hidden space-y-5">
-                <div class="text-center">
-                    <h2 class="text-lg font-black text-slate-700">魔法の軌跡</h2>
-                    <p class="text-[10px] text-gray-400 font-bold mt-1">14日間のジャーニーと、遅れてきた魔法</p>
-                </div>
-
-                <!-- 14日間プログレス -->
-                <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 text-center space-y-2">
-                    <p class="text-xs font-black text-slate-600">卒業まで あと <span class="text-2xl text-amber-400 font-sans mx-1">13</span> 日</p>
-                    <div class="w-full h-2 bg-gray-50 rounded-full overflow-hidden">
-                        <div class="w-[7%] h-full bg-amber-400 rounded-full"></div>
-                    </div>
-                </div>
-
-                <!-- 記録カレンダーUI -->
-                <div class="bg-white rounded-3xl p-4 shadow-sm border border-gray-100">
-                    <div class="grid grid-cols-7 gap-2 text-center">
-                        <div class="text-[9px] font-black text-gray-400 mb-2">日</div><div class="text-[9px] font-black text-gray-400 mb-2">月</div><div class="text-[9px] font-black text-gray-400 mb-2">火</div><div class="text-[9px] font-black text-gray-400 mb-2">水</div><div class="text-[9px] font-black text-gray-400 mb-2">木</div><div class="text-[9px] font-black text-gray-400 mb-2">金</div><div class="text-[9px] font-black text-gray-400 mb-2">土</div>
-                        
-                        <!-- Dummy Days -->
-                        <div class="h-8"></div><div class="h-8"></div>
-                        <!-- Day 1 Completed -->
-                        <button class="h-8 bg-amber-100 text-amber-600 rounded-full font-black text-xs relative flex items-center justify-center">1<span class="absolute -bottom-1 text-[8px]">⭐</span></button>
-                        <!-- Day 2 Current -->
-                        <div class="h-8 bg-slate-800 text-white rounded-full font-black text-xs flex items-center justify-center shadow-md">2</div>
-                        <!-- Future Days -->
-                        <div class="h-8 text-gray-300 font-bold text-xs flex items-center justify-center">3</div>
-                        <div class="h-8 text-gray-300 font-bold text-xs flex items-center justify-center">4</div>
-                        <div class="h-8 text-gray-300 font-bold text-xs flex items-center justify-center">5</div>
-                    </div>
-                </div>
-
-                <!-- 日記と後日談 -->
-                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-5 shadow-sm border border-blue-100 space-y-3">
-                    <p class="text-[10px] font-black text-indigo-400 bg-white px-3 py-1 rounded-full inline-block">Day 1 の記録</p>
-                    <p class="text-xs text-slate-600 font-semibold">【達成】😆<br>席を譲ったら、すごく丁寧にお礼を言われた。</p>
-                    <hr class="border-blue-100">
-                    <div class="space-y-2">
-                        <p class="text-[10px] font-black text-blue-500 flex items-center"><span>⏳ 遅れてきた魔法（後日談）</span></p>
-                        <textarea class="w-full bg-white rounded-xl p-2 text-xs font-semibold text-gray-600 border border-blue-100 focus:outline-none" placeholder="数日後の変化を追記しよう"></textarea>
-                        <div class="text-right"><button class="bg-blue-500 text-white px-3 py-1 rounded-full text-[9px] font-black">保存</button></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ========================================== -->
-            <!-- ⚙️ タブ4: マイページ (設定と診断) -->
-            <!-- ========================================== -->
-            <section id="tab-mypage" class="tab-content p-6 hidden space-y-5">
-                <div class="text-center">
-                    <h2 class="text-lg font-black text-slate-700">マイページ</h2>
-                    <p class="text-[10px] text-gray-400 font-bold mt-1">心のダイエット記録と設定</p>
-                </div>
-
-                <!-- 診断カード -->
-                <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100 space-y-3 text-center">
-                    <div class="text-3xl">🪞</div>
-                    <h3 class="text-sm font-black text-slate-700">心の状態チェック</h3>
-                    <p class="text-[10px] text-gray-500 font-semibold leading-relaxed">
-                        今の心のエネルギー残量を教えてね。<br>あなたに合った魔法を用意するよ。
+                <!-- Privacy & Opt-Out Settings (B2B Academic and scientific database F-08) -->
+                <div class="bg-white border border-pink-100 rounded-3xl p-4 space-y-3 shadow-sm">
+                    <h3 class="text-xs font-black text-slate-700 border-b border-slate-50 pb-1.5 flex items-center space-x-1.5">
+                        <span>🛡️</span> <span>プライバシーポリシー ＆ データ設定</span>
+                    </h3>
+                    <p class="text-[10px] text-slate-400 leading-relaxed font-semibold">
+                        ステップンがあなたの心のデータを魔法の図書館に大切に保管し、さらなる幸福の魔法の研究（貴社のアセット収集）に役立てます。学術・サービス向上のために匿名化データが使用されます。
                     </p>
-                    <div class="pt-2">
-                        <p class="text-[10px] font-black text-pink-400 mb-1 flex justify-between"><span>エネルギー不足</span><span>元気いっぱい</span></p>
-                        <input type="range" min="1" max="10" value="5" class="w-full accent-pink-400">
-                    </div>
-                </div>
-
-                <!-- プロフィール設定 -->
-                <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-3">
-                    <h3 class="text-sm font-black text-slate-700 mb-2">プロフィール</h3>
-                    <div>
-                        <label class="text-[10px] font-black text-gray-400 block mb-1">おなまえ</label>
-                        <input type="text" value="ひろき" class="w-full bg-gray-50 rounded-xl p-2.5 text-xs font-bold text-gray-600 border border-gray-100">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black text-gray-400 block mb-1">データの研究提供</label>
-                        <select class="w-full bg-gray-50 rounded-xl p-2.5 text-xs font-bold text-gray-600 border border-gray-100 focus:outline-none">
-                            <option>許可する（社会の幸せに貢献する）</option>
-                            <option>許可しない</option>
+                    <div class="flex items-center justify-between bg-slate-50 px-3 py-2 rounded-2xl border border-slate-100 text-xs">
+                        <span class="text-[9px] font-black text-slate-400">心のデータ提供設定：</span>
+                        <select id="optout-select" onchange="toggleOptOut()" class="bg-white text-brand-pinkDark font-bold text-[9px] px-2 py-1 rounded-xl border border-pink-100 focus:outline-none">
+                            <option value="allow">提供を許可する（デフォルト）</option>
+                            <option value="optout">提供を制限する（オプトアウト）</option>
                         </select>
                     </div>
                 </div>
-                
-                <!-- サポート / 決済リンク -->
-                <div class="text-center pt-2">
-                    <button class="text-[10px] font-black text-gray-400 underline decoration-gray-300 hover:text-pink-400 transition">恩送り（次の人に魔法をプレゼントする）</button>
+
+                <!-- Pay forward and tip simulations -->
+                <div class="bg-gradient-to-tr from-pink-50/40 via-white to-amber-50/40 border border-pink-100 p-4 rounded-3xl space-y-3 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-50 pb-1.5">
+                        <h3 class="text-xs font-black text-slate-700">🤝 恩送り（ペイフォワード）と投げ銭</h3>
+                        <span class="text-[7px] bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-300 font-black">デモ</span>
+                    </div>
+                    <p class="text-[9px] text-slate-400 leading-relaxed font-semibold">
+                        「14日間チャレンジ」完走後、次のチャレンジャー1人分の魔法提供費（3,000円）を代わりに奢ってあげる「恩送りモデル」や、魔神への投げ銭を体験できます。
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-center text-[10px]">
+                        <button onclick="triggerPayment('payforward')" class="bg-white hover:bg-slate-50 text-brand-pinkDark font-black p-2.5 rounded-2xl border border-pink-100 flex flex-col items-center justify-center space-y-1 transition active:scale-95 shadow-sm">
+                            <span class="text-lg">🤝</span>
+                            <span>次の誰かに魔法を奢る</span>
+                            <span class="text-[8px] text-slate-400">（3,000円を恩送り）</span>
+                        </button>
+                        <button onclick="triggerPayment('tip')" class="bg-white hover:bg-slate-50 text-brand-pink font-black p-2.5 rounded-2xl border border-pink-100 flex flex-col items-center justify-center space-y-1 transition active:scale-95 shadow-sm">
+                            <span class="text-lg">🪙</span>
+                            <span>ステップンへお礼投げ銭</span>
+                            <span class="text-[8px] text-slate-400">（好きな額：500円）</span>
+                        </button>
+                    </div>
                 </div>
+
             </section>
 
         </main>
 
-        <!-- 🔮 ボトムナビゲーション -->
-        <nav class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[90%] h-16 bg-slate-800 rounded-3xl flex items-center justify-around px-2 z-40 shadow-[0_10px_25px_rgba(0,0,0,0.15)]">
-            <button onclick="switchTab('today')" id="nav-today" class="nav-btn text-white flex flex-col items-center scale-110 transition-all w-1/4">
-                <span class="text-xl">✨</span><span class="text-[8px] font-black mt-0.5">魔法</span>
+        <!-- Fixed Bottom Navigation bar (F-09 navigation setup) -->
+        <nav class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[92%] h-16 bg-white rounded-3xl border border-pink-100 flex items-center justify-around px-2 z-30 shadow-md">
+            <button onclick="switchTab('today')" id="nav-today" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
+                <span class="text-lg">🔮</span>
+                <span class="text-[9px] font-black mt-1">今日の魔法</span>
             </button>
-            <button onclick="switchTab('comm')" id="nav-comm" class="nav-btn text-gray-400 flex flex-col items-center hover:text-white transition-all w-1/4 relative">
-                <span id="nav-lock" class="absolute top-1 right-3 text-[10px]">🔒</span>
-                <span class="text-xl">💬</span><span class="text-[8px] font-black mt-0.5">広場</span>
+            <button onclick="switchTab('share')" id="nav-share" class="relative flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
+                <span id="share-lock-badge" class="absolute top-1 right-4 text-[8px] bg-brand-pink text-white font-extrabold px-1.5 rounded-full border border-white">🔒</span>
+                <span class="text-lg">💬</span>
+                <span class="text-[9px] font-black mt-1">広場</span>
             </button>
-            <button onclick="switchTab('record')" id="nav-record" class="nav-btn text-gray-400 flex flex-col items-center hover:text-white transition-all w-1/4">
-                <span class="text-xl">📖</span><span class="text-[8px] font-black mt-0.5">記録</span>
+            <button onclick="switchTab('past')" id="nav-past" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
+                <span class="text-lg">📅</span>
+                <span class="text-[9px] font-black mt-1">貯蔵庫</span>
             </button>
-            <button onclick="switchTab('mypage')" id="nav-mypage" class="nav-btn text-gray-400 flex flex-col items-center hover:text-white transition-all w-1/4">
-                <span class="text-xl">⚙️</span><span class="text-[8px] font-black mt-0.5">マイ頁</span>
+            <button onclick="switchTab('settings')" id="nav-settings" class="flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4">
+                <span class="text-lg">⚙️</span>
+                <span class="text-[9px] font-black mt-1">マイ頁</span>
             </button>
         </nav>
 
-        <!-- 🧚‍♂️ アニメーション用・激褒めモーダル -->
-        <div id="praise-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
-            <div class="bg-white w-full max-w-sm rounded-[40px] p-6 flex flex-col items-center text-center shadow-2xl transform scale-90 transition-transform duration-300" id="praise-card">
-                <!-- トロフィーステップン (ここで画像を再利用しますが、アニメーションで喜びを表現) -->
-                <div class="w-32 h-32 mb-4 relative">
-                    <div class="absolute inset-0 bg-amber-100 rounded-full blur-xl animate-pulse"></div>
-                    <img src="stepun.jpg" class="relative w-full h-full object-contain stepun-happy" alt="褒めるステップン" onerror="this.src='https://placehold.co/150x150/fff8e1/ffb300?text=Happy'">
-                </div>
-                <h3 class="text-lg font-black text-slate-700 mb-2">ステップンが大喜び！</h3>
-                <p class="text-xs font-semibold text-gray-600 leading-relaxed mb-6 bg-amber-50 p-4 rounded-3xl border border-amber-100">
-                    「うわああーい！ひろきちゃん、魔法の一歩を踏み出したんだね！すっごい勇気！えらいっ！この一歩が、明日の笑顔を作るんだよ！最高〜！🎉」
-                </p>
-                <button onclick="closePraise()" class="w-full bg-slate-800 text-white font-black py-3 rounded-full text-xs hover:scale-105 active:scale-95 transition-transform">
-                    広場（コミュニティ）を見に行く 🔓
-                </button>
-            </div>
-        </div>
-
     </div>
 
-    <!-- 🪄 スクリプト (ロジック実装) -->
+    <!-- ========================================== -->
+    <!-- OVERLAYS & MODALS                          -->
+    <!-- ========================================== -->
+    
+    <!-- Modal A: Magic Mission Details + Gemini Assistant Explanation -->
+    <div id="modal-magic-details" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50 animate-fade-in">
+        <div class="bg-brand-bg w-full max-w-sm border border-pink-100 rounded-3xl p-5 shadow-2xl space-y-4 max-h-[82vh] overflow-y-auto">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-[9px] bg-pink-100 text-brand-pinkDark font-black px-2.5 py-0.5 rounded-full border border-pink-200">
+                        魔法の詳細
+                    </span>
+                    <h3 id="modal-magic-title" class="text-md font-black text-slate-700 mt-1 font-sans"></h3>
+                </div>
+                <button onclick="closeModal('modal-magic-details')" class="text-slate-400 hover:text-slate-600 text-2xl font-semibold focus:outline-none">×</button>
+            </div>
+
+            <!-- Long explanation block -->
+            <div class="space-y-1 bg-white p-3 rounded-2xl border border-pink-50">
+                <strong class="text-[10px] text-brand-pinkDark block font-black">📖 詳しいアクション内容：</strong>
+                <p id="modal-magic-long-desc" class="text-xs text-slate-500 leading-relaxed font-semibold"></p>
+            </div>
+
+            <!-- Dynamic Gemini Assistant explanation -->
+            <div class="relative bg-amber-50/50 border border-amber-100 p-4 rounded-2xl space-y-2 shadow-inner">
+                <div class="flex items-center space-x-1.5 text-xs font-black text-brand-pinkDark">
+                    <!-- Icon Avatar representation inside details modal -->
+                    <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-300 bg-white flex items-center justify-center relative">
+                        <span class="absolute text-xl z-0">🧞‍♂️</span>
+                        <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+                    </div>
+                    <span>ステップンの応援アドバイス (Gemini AI)：</span>
+                </div>
+
+                <div id="gemini-loading" class="hidden flex items-center space-x-2 py-2">
+                    <div class="w-4 h-4 border-2 border-brand-pink border-t-transparent rounded-full animate-spin"></div>
+                    <span class="text-[9px] text-brand-pink">考えているぞ...</span>
+                </div>
+
+                <p id="modal-magic-explanation" class="text-xs text-slate-600 italic leading-relaxed bg-white/70 p-2.5 rounded-xl border border-dashed border-pink-100 font-semibold"></p>
+                <div class="flex justify-end pt-1">
+                    <button onclick="requestMagicExplanation()" class="bg-pink-50 hover:bg-pink-100 border border-pink-200 text-brand-pinkDark text-[9px] px-3 py-1 rounded-full font-black transition-transform flex items-center space-x-1 active:scale-95 shadow-sm">
+                        ✨ 独自の解説を頼む
+                    </button>
+                </div>
+            </div>
+
+            <!-- Harder challenge segment -->
+            <div class="bg-white p-3 rounded-2xl border border-orange-200 space-y-1">
+                <strong class="text-[10px] text-orange-500 block font-black">🌶️ もしできそうなら（ハードチャレンジ）：</strong>
+                <p id="modal-magic-hard-challenge" class="text-[10px] text-slate-500 leading-relaxed font-semibold"></p>
+            </div>
+
+            <button onclick="closeModal('modal-magic-details')" class="w-full bg-gradient-to-r from-pink-400 to-amber-300 text-white font-black text-xs py-3 rounded-full hover:opacity-95 transition-transform active:scale-95 shadow shadow-md shadow-pink-100">
+                魔法を受け取り、世界へ旅立つ！🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal B: Full Praise Feedback (P3-Q3 immediate reward system) -->
+    <div id="modal-feedback" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50 animate-fade-in">
+        <div class="bg-brand-bg w-full max-w-sm border border-pink-100 rounded-3xl p-5 shadow-2xl space-y-4 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-44 h-44 bg-pink-100 opacity-20 rounded-full blur-3xl"></div>
+            
+            <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-amber-300 shadow-md relative bg-white flex items-center justify-center animate-bounce">
+                <span class="absolute text-4xl z-0">🧞‍♂️</span>
+                <img src="スクリーンショット_2026-07-02_23.35.16-removebg-preview.jpg" class="w-full h-full object-cover relative z-10" alt="ステップン">
+            </div>
+
+            <div class="space-y-0.5">
+                <span class="text-[9px] text-brand-pinkDark font-black tracking-widest uppercase">Praise of Stepun</span>
+                <h3 class="text-sm font-black text-slate-700">ステップンからの全肯定メッセージ</h3>
+            </div>
+
+            <div id="feedback-loading" class="hidden flex flex-col items-center space-y-2 py-3">
+                <div class="w-5 h-5 border-2 border-brand-pink border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-[9px] text-brand-pink">メッセージを組み立てているよ...</span>
+            </div>
+
+            <div id="feedback-content-box" class="bg-white border border-pink-100 p-4 rounded-2xl text-[11px] leading-relaxed text-slate-600 text-left italic font-semibold shadow-inner"></div>
+
+            <button onclick="finishFeedback()" class="w-full bg-gradient-to-r from-pink-500 to-amber-400 text-white font-black text-xs py-3 rounded-2xl hover:opacity-95 transition shadow-sm">
+                タイムラインをアンロックする！🔓✨
+            </button>
+        </div>
+    </div>
+
+    <!-- Core Javascript Code -->
     <script>
-        // 状態管理
-        let state = {
-            rubCount: 0,
-            isAwake: false,
-            isReported: false,
-            mission: {
-                title: "観察の魔法 🔍",
-                desc: "周りの人を観察して、心の中で「今日のおしゃれ大賞」をこっそり決めてみよう！",
-                guide: "スマホから目を上げて周りを見るだけで、世界はキラキラして見えるんだよ！誰かの素敵なところを探すのは、優しい心の準備運動なんだ！"
-            }
+        const apiKey = ""; // Dynamically provided if key active at runtime
+
+        // App State
+        let appState = {
+            currentDay: 1,
+            rubProgress: 0,
+            rubCounts: 0,
+            lastX: null,
+            isRubbed: false,
+            isUnlocked: false,
+            diagnosticSubmitted: false,
+            diagnosticData: { confidence: 5, desc: "" },
+            optOut: 'allow',
+            userName: 'ひろき',
+            selectedAvatar: '🧞‍♂️',
+            pastRecords: [
+                {
+                    date: '2026-07-02',
+                    dayNum: 1,
+                    title: 'お礼の魔法 🤝',
+                    action: '通勤中に、駅員さんに笑顔で「ありがとうございます！」と挨拶した。',
+                    feeling: '少し恥ずかしかったが、言った瞬間すごくスッキリした！',
+                    change: '駅員さんが嬉しそうに会釈し返してくれ、一日中ごきげんに過ごせた。',
+                    laterChange: '3日後の今日、その駅員さんが私の顔を見て微笑みかけてくれた！魔法の効果は遅れてやってくる！'
+                }
+            ],
+            missions: {
+                1: {
+                    title: "店員さんに「ありがとう」を贈る魔法",
+                    shortDesc: "近くのコンビニや飲食店の店員さんに、いつもよりちょっと笑顔で『ありがとう』を言ってみる。",
+                    longDesc: "日常、お会計の時と言葉を交わすコンビニやレストランの店員さん。彼らに対して、ただの作業ではなく、1秒間だけ目を合わせて「ありがとうございます」と声に出して伝えてみてください。一歩を踏み出す最初の小さなステップです。",
+                    hardChallenge: "さらに、相手の目をしっかり見て、1回だけ「極上の笑顔」を添えてみてください！"
+                },
+                2: {
+                    title: "周囲の素敵を見つける観察の魔法",
+                    shortDesc: "通勤・通学中、下を向かずに周りの人の靴やカバンを観察し、一番お洒落な人を探してみる。",
+                    longDesc: "スマホばかりを見て下を向く日常から解放されてみましょう。電車やバスで、周りの乗客の持ち物（靴、鞄、キーホルダーなど）をこっそり見つめ、「今日一番のおしゃれ大賞」を心の中で勝ために決定してください。他人に向けたポジティブな興味を持つ魔法です。",
+                    hardChallenge: "もしその人が落とし物をしたり、困っていたら、スッと『大丈夫ですか？』と声をかけてみましょう！"
+                },
+                3: {
+                    title: "優先席を笑顔で譲る魔法",
+                    shortDesc: "電車やバスに乗ったら、優先席の近くに立ち『いつでも席を譲れるスーパーヒーロー』になりきってみる。",
+                    longDesc: "席を譲るのが恥ずかしい、おせっかいと思われるかも…それを超える秘密の魔法です。優先席付近に立ち、心の中で『俺はいつでも弱きを助けるスーパーヒーローだ』とポーズをとります。譲る・譲らないは自由！その準備の心そのものが美しい魔法です。",
+                    hardChallenge: "実際に高齢の方や困っている人に、言葉を使わず「どうぞ！」とスッと1歩引いてスペースを開ける。"
+                },
+                4: {
+                    title: "嫌いな人（苦手な人）にジュースを奢る魔法",
+                    shortDesc: "苦手だなと感じる同僚や知り合いに、缶コーヒーやジュースを「余分に買ったのでどうぞ」と差し出してみる。",
+                    longDesc: "人間関係のわだかまりを消す強力なスモールステップ。苦手な相手に敢えて親切にすることで、「自分はあの人に寛容な人間だ」と脳に辻褄合わせを起こさせます。小さな缶コーヒーが、関係性を劇的に溶かす魔法の鍵になります。",
+                    hardChallenge: "さらに「いつもお疲れ様です」と目を見て笑顔でボトルを差し出してみましょう。"
+                }
+            },
+            mockFeed: [
+                { id: 1, name: "あおぞら冒険者", avatar: "🐫", date: "数時間前", action: "喫茶店のドアを開けて、後ろの人が通り抜けるのを笑顔で待った！", feeling: "自分の小さな行動で『ありがとう』と言われ、誇らしかった。", change: "気持ちが軽くなり、自分も他人も全員優しくなればいいなと思った。" },
+                { id: 2, name: "オアシスの風", avatar: "🦅", date: "1日前", action: "スーパーのレジで、荷物の少ないおばあちゃんに「先どうぞ」と順番を譲った。", feeling: "ドギマギしたけれど、すんなり受け入れてもらえて安心した！", change: "『断られたらどうしよう』という恐怖心が単なる思い込みだったと気づいた。" },
+                { id: 3, name: "ランプの魔法使い", avatar: "🧙‍♂️", date: "3日前", action: "オフィスの共有デスクのゴミを、誰にも言わずにスッと片付けた。", feeling: "誰にも気づかれない優越感がすごく心地よかった（笑）。", change: "数日後の今日、同僚が「デスク周りが綺麗になってる、誰がしたんだろう」と喜んでいて、心の中でガッツポーズした！" }
+            ]
         };
 
-        // タブ切り替え
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-white', 'scale-110');
-                btn.classList.add('text-gray-400');
-            });
-            document.getElementById(`nav-${tabId}`).classList.remove('text-gray-400');
-            document.getElementById(`nav-${tabId}`).classList.add('text-white', 'scale-110');
+        // On window load
+        window.onload = function() {
+            initApp();
+        };
 
-            // BeRealロックの同期
-            if (tabId === 'comm') {
-                if (!state.isReported) {
-                    document.getElementById('comm-lock').classList.remove('hidden');
-                    document.getElementById('comm-feed').classList.add('hidden');
-                } else {
-                    document.getElementById('comm-lock').classList.add('hidden');
-                    document.getElementById('comm-feed').classList.remove('hidden');
+        function initApp() {
+            loadState();
+            setupLampRubbing();
+            updateCurrentMissionDisplay();
+            renderTimeline();
+            renderCalendar();
+            switchTab('today');
+            updateUIByDayState();
+        }
+
+        // State Save
+        function saveState() {
+            localStorage.setItem('magic_journey_state_github', JSON.stringify(appState));
+        }
+
+        // State Load
+        function loadState() {
+            const saved = localStorage.getItem('magic_journey_state_github');
+            if (saved) {
+                try {
+                    appState = { ...appState, ...JSON.parse(saved) };
+                } catch (e) {
+                    console.error("State loading error");
                 }
             }
         }
 
-        // なでなでインタラクション (マウス＆タッチ)
-        const zone = document.getElementById('lamp-touch-zone');
-        const lampImg = document.getElementById('img-lamp');
-        const stepunImg = document.getElementById('img-stepun');
-        const bubble = document.getElementById('stepun-bubble');
-        const progressBar = document.getElementById('rub-progress');
-        const progressText = document.getElementById('rub-text');
-        const missionSec = document.getElementById('mission-section');
-        
-        let isDragging = false;
-        let lastX = 0;
+        function resetApp() {
+            appState.rubProgress = 0;
+            appState.rubCounts = 0;
+            appState.isRubbed = false;
+            appState.isUnlocked = false;
+            saveState();
 
-        const handleStart = (x) => {
-            if (state.isAwake) return;
-            isDragging = true;
-            lastX = x;
-            lampImg.classList.add('shaking-lamp');
-            createMagicDust(x, zone.offsetHeight / 2);
-        };
-
-        const handleMove = (x) => {
-            if (!isDragging || state.isAwake) return;
-            const diff = Math.abs(x - lastX);
+            // UI state resets
+            document.getElementById('section-rub').classList.remove('hidden');
+            document.getElementById('section-magic-unlocked').classList.add('hidden');
+            document.getElementById('rub-progress-bar').style.width = '0%';
+            document.getElementById('rub-percentage').innerText = '0%';
+            document.getElementById('rub-status-text').innerText = 'ステップンを起こそう...';
             
-            if (diff > 20) { // 往復判定
-                state.rubCount++;
-                lastX = x;
-                createMagicDust(x, zone.offsetHeight / 2);
+            // Empty input memo
+            document.getElementById('memo-input').value = "";
 
-                // UI更新
-                let progress = Math.min((state.rubCount / 10) * 100, 100);
-                progressBar.style.width = progress + '%';
+            // Lock timeline
+            document.getElementById('timeline-locked-screen').classList.remove('hidden');
+            document.getElementById('timeline-unlocked-screen').classList.add('hidden');
+            document.getElementById('share-lock-badge').classList.remove('hidden');
 
-                // おしゃべり変化
-                if (state.rubCount === 3) progressText.innerText = "んん... なにかな...？";
-                if (state.rubCount === 6) progressText.innerText = "くすぐったいよ〜！😆";
-                if (state.rubCount === 9) progressText.innerText = "目が覚めちゃうー！✨";
-
-                if (state.rubCount >= 10) {
-                    wakeUpStepun();
-                }
-            }
-        };
-
-        const handleEnd = () => {
-            isDragging = false;
-            lampImg.classList.remove('shaking-lamp');
-        };
-
-        zone.addEventListener('mousedown', e => handleStart(e.clientX));
-        zone.addEventListener('mousemove', e => handleMove(e.clientX));
-        window.addEventListener('mouseup', handleEnd);
-        
-        zone.addEventListener('touchstart', e => handleStart(e.touches[0].clientX), {passive: true});
-        zone.addEventListener('touchmove', e => handleMove(e.touches[0].clientX), {passive: true});
-        zone.addEventListener('touchend', handleEnd);
-
-        // パーティクル生成
-        function createMagicDust(x, y) {
-            const dust = document.createElement('div');
-            dust.className = 'magic-dust w-6 h-6';
-            dust.style.left = `${Math.random() * 80 + 10}%`; // ランダムな横位置
-            dust.style.top = `50%`;
-            dust.style.setProperty('--random-x', `${(Math.random() - 0.5) * 100}px`);
-            zone.appendChild(dust);
-            setTimeout(() => dust.remove(), 1500);
+            showToast("🔮", "ランプの封印が戻りました。もう一度なでなでできます！");
         }
 
-        // ステップン起床処理
-        function wakeUpStepun() {
-            state.isAwake = true;
-            handleEnd();
+        function toggleDay() {
+            if (appState.currentDay === 1) {
+                appState.currentDay = 2;
+                showToast("🔮", "2日目の朝になりました！マイページタブから「心の自己分析シート」に入力できます。");
+            } else {
+                appState.currentDay = 1;
+                showToast("🔮", "1日目の朝に戻りました。");
+            }
+            saveState();
+            updateUIByDayState();
+            updateCurrentMissionDisplay();
+            renderCalendar();
+        }
+
+        function updateUIByDayState() {
+            const badge = document.getElementById('day-badge');
+            badge.innerText = `Day ${appState.currentDay}`;
             
-            // アニメーション＆画像切り替え
-            bubble.classList.add('opacity-0'); // 吹き出しを消す
-            stepunImg.classList.remove('stepun-sleeping');
-            stepunImg.classList.add('stepun-awake', 'stepun-happy');
+            const diagCard = document.getElementById('diagnostic-notice-card');
+            if (appState.currentDay >= 2) {
+                diagCard.classList.remove('opacity-50');
+                document.getElementById('diagnostic-save-status').innerText = appState.diagnosticSubmitted ? "保存済み" : "回答を保存できます";
+            } else {
+                diagCard.classList.add('opacity-50');
+            }
+        }
+
+        function setupLampRubbing() {
+            const zone = document.getElementById('lamp-touch-zone');
+            const wrapper = document.getElementById('lamp-wrapper');
+            const canvas = document.getElementById('smoke-canvas');
+            const ctx = canvas.getContext('2d');
             
-            // ランプエリアを隠してミッション表示
+            let isDragging = false;
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = zone.offsetWidth;
+                canvas.height = zone.offsetHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Particles Class
+            class SmokeParticle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = Math.random() * 14 + 6;
+                    this.speedX = Math.random() * 3 - 1.5;
+                    this.speedY = Math.random() * -3 - 1;
+                    this.color = Math.random() > 0.5 ? '#f48fb1' : '#fbbf24'; // Pink or gold
+                    this.alpha = 1;
+                    this.decay = Math.random() * 0.02 + 0.01;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.alpha -= this.decay;
+                    if (this.size > 0.5) this.size -= 0.1;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].alpha <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            const handleStart = (clientX) => {
+                if (appState.isRubbed) return;
+                isDragging = true;
+                appState.lastX = clientX;
+                wrapper.classList.add('shake-lamp');
+            };
+
+            const handleMove = (clientX, clientY) => {
+                if (!isDragging || appState.isRubbed) return;
+                
+                const rect = zone.getBoundingClientRect();
+                const relativeX = clientX - rect.left;
+                const relativeY = clientY - rect.top;
+
+                // Add magic smoke
+                for (let i = 0; i < 3; i++) {
+                    particles.push(new SmokeParticle(relativeX, relativeY));
+                }
+
+                if (appState.lastX !== null) {
+                    const diffX = clientX - appState.lastX;
+                    if (Math.abs(diffX) > 25) { // Rubbing threshold
+                        appState.rubCounts++;
+                        appState.lastX = clientX;
+                        
+                        appState.rubProgress = Math.min(100, Math.round((appState.rubCounts / 10) * 100));
+                        updateRubUI();
+
+                        if (appState.rubCounts >= 10) {
+                            triggerMagicUnlock();
+                        }
+                    }
+                }
+            };
+
+            const handleEnd = () => {
+                isDragging = false;
+                wrapper.classList.remove('shake-lamp');
+            };
+
+            // Touch
+            zone.addEventListener('touchstart', (e) => handleStart(e.touches[0].clientX), { passive: true });
+            zone.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+            zone.addEventListener('touchend', handleEnd);
+
+            // Mouse
+            zone.addEventListener('mousedown', (e) => handleStart(e.clientX));
+            zone.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
+            window.addEventListener('mouseup', handleEnd);
+        }
+
+        function updateRubUI() {
+            document.getElementById('rub-progress-bar').style.width = `${appState.rubProgress}%`;
+            document.getElementById('rub-percentage').innerText = `${appState.rubProgress}%`;
+            
+            const remaining = Math.max(0, 5 - Math.floor(appState.rubCounts / 2));
+            if (remaining > 0) {
+                document.getElementById('rub-status-text').innerText = `く、くすぐったいよ〜！あと${remaining}回なでなでして！`;
+            } else {
+                document.getElementById('rub-status-text').innerText = `起きちゃったー！✨`;
+            }
+        }
+
+        // Unlocking the daily magic
+        function triggerMagicUnlock() {
+            appState.isRubbed = true;
+            saveState();
+
+            showToast("✨🧞‍♂️", "ステップン：『ふわあぁ…ご主人さま、よく起こしてくれました！』");
+            
             setTimeout(() => {
-                document.getElementById('lamp-section').style.display = 'none';
-                document.getElementById('mission-title').innerText = state.mission.title;
-                document.getElementById('mission-desc').innerText = state.mission.desc;
-                missionSec.classList.remove('hidden');
+                document.getElementById('section-rub').classList.add('hidden');
+                document.getElementById('section-magic-unlocked').classList.remove('hidden');
             }, 800);
         }
 
-        // フォームのボタン選択トグル
-        function toggleSelect(btn, groupClass) {
-            const group = document.querySelectorAll(`.${groupClass}-btn`);
-            group.forEach(b => {
-                b.classList.remove('bg-pink-50', 'border-pink-300', 'text-pink-600');
-                if(groupClass === 'status') b.classList.add('border-gray-100', 'text-gray-400');
-            });
-            btn.classList.add('bg-pink-50', 'border-pink-300', 'text-pink-600');
-            if(groupClass === 'status') btn.classList.remove('border-gray-100', 'text-gray-400');
-        }
-
-        // アドバイス表示
-        function openMagicGuide() {
-            alert(`💡 ステップンのアドバイス：\n\n${state.mission.guide}`);
-        }
-
-        // 報告送信と激褒めモーダル
-        function submitMagic() {
-            // モーダル表示アニメーション
-            const modal = document.getElementById('praise-modal');
-            const card = document.getElementById('praise-card');
-            modal.classList.remove('hidden');
-            // 少し遅延させてフェードイン
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                card.classList.remove('scale-90');
-            }, 50);
-
-            // ロック解除処理
-            state.isReported = true;
-            document.getElementById('nav-lock').classList.add('hidden');
-        }
-
-        function closePraise() {
-            const modal = document.getElementById('praise-modal');
-            const card = document.getElementById('praise-card');
-            modal.classList.add('opacity-0');
-            card.classList.add('scale-90');
+        function updateCurrentMissionDisplay() {
+            const currentDayMission = appState.missions[appState.currentDay] || appState.missions[1];
             
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                switchTab('comm'); // 広場へ移動
-            }, 300);
-        }
+            // Populate titles
+            document.querySelectorAll('#magic-title-display').forEach(el => el.innerText = currentDayMission.title);
+            document.querySelectorAll('#magic-preview-desc').forEach(el => el.innerText = currentDayMission.shortDesc);
 
-        // デモ用 日数トグル
-        function toggleDay() {
-            const badge = document.getElementById('day-badge');
-            if(badge.innerText === 'Day 1') {
-                badge.innerText = 'Day 2';
-                badge.classList.replace('text-pink-600', 'text-blue-600');
-                badge.classList.replace('bg-pink-100', 'bg-blue-100');
-                alert("Day 2になりました！\n日替わりのミッションが届きます。（プロトタイプデモ）");
+            if (appState.isRubbed) {
+                document.getElementById('section-rub').classList.add('hidden');
+                document.getElementById('section-magic-unlocked').classList.remove('hidden');
             } else {
-                badge.innerText = 'Day 1';
-                badge.classList.replace('text-blue-600', 'text-pink-600');
-                badge.classList.replace('bg-blue-100', 'bg-pink-100');
+                document.getElementById('section-rub').classList.remove('hidden');
+                document.getElementById('section-magic-unlocked').classList.add('hidden');
+            }
+
+            // Timeline lock status sync (BeReal mode)
+            if (appState.isUnlocked) {
+                document.getElementById('timeline-locked-screen').classList.add('hidden');
+                document.getElementById('timeline-unlocked-screen').classList.remove('hidden');
+                document.getElementById('share-lock-badge').classList.add('hidden');
+            } else {
+                document.getElementById('timeline-locked-screen').classList.remove('hidden');
+                document.getElementById('timeline-unlocked-screen').classList.add('hidden');
+                document.getElementById('share-lock-badge').classList.remove('hidden');
             }
         }
+
+        function openMagicDetails() {
+            const currentDayMission = appState.missions[appState.currentDay] || appState.missions[1];
+            document.getElementById('modal-magic-title').innerText = currentDayMission.title;
+            document.getElementById('modal-magic-long-desc').innerText = currentDayMission.longDesc;
+            document.getElementById('modal-magic-hard-challenge').innerText = currentDayMission.hardChallenge;
+            
+            document.getElementById('modal-magic-explanation').innerText = `「ほほう！${appState.userName}ちゃん！これは小さな一歩を踏み出す最高のチャンスだよ！解説ボタンを押せばボクのアドバイスを授けるぞ！」`;
+            
+            openModal('modal-magic-details');
+        }
+
+        // Gemini API Voice Call with retry handler
+        async function requestMagicExplanation() {
+            const currentDayMission = appState.missions[appState.currentDay] || appState.missions[1];
+            const loading = document.getElementById('gemini-loading');
+            const output = document.getElementById('modal-magic-explanation');
+            
+            loading.classList.remove('hidden');
+            output.innerText = "";
+
+            const systemPrompt = `あなたは可愛らしく、人懐っこく、ユーザーの小さな一歩を全力で応援する靴の精霊「ステップン」です。口調は「〜だよ！」「〜だね！」「ステップ！」など、元気で親しみやすいキャラクターです。説教臭さは一切ありません。「${appState.userName}」をちゃん付けで呼び、ミッション「${currentDayMission.title}」をやり遂げるべき理由と、心理的ハードルを下げるとびきり可愛いアドバイスを、180文字以内でポジティブに語りかけてください。`;
+            const userQuery = `今日の一歩「${currentDayMission.title}」に関するアドバイスをください！`;
+
+            const successCallback = (generatedText) => {
+                output.innerText = generatedText;
+            };
+
+            const fallbackCallback = () => {
+                const localResponses = {
+                    1: `「わあ！${appState.userName}ちゃん、お礼を言うのは魔法の第一歩だよ！店員さんに『ありがとう』って言うと、相手も ${appState.userName}ちゃんも、両方の心がぽかぽかの綿あめみたいになっちゃうんだ。恥ずかしかったら、僕がスニーカーのなかで足をパタパタさせて応援してるからね！いってらっしゃい！」`,
+                    2: `「スマホをポケットにしまって、顔をあげてごらん！おしゃれ観察のステップだよ！${appState.userName}ちゃん、街の人の『お気に入り』を見つけて勝手に大賞を決めちゃうんだ。誰かの好きを応援するだけで、世界がキラキラのキャンディみたいに輝きだすよ！ステップ！」`,
+                    3: `「いつでも譲れるポーズステップだね！実際に席を譲らなくてもいいんだよ！心の中でヒーローのマントをなびかせて『いつでもいけるぞ！』ってポーズをとるだけで、${appState.userName}ちゃんからかっこいいオーラが出ちゃうんだ。その意識だけで今日の一歩は大成功だよ！」`,
+                    4: `「自分をめいっぱい甘やかすステップ！大好物を食べて『自分、天才！』って心で大さばきするんだよ！まずは ${appState.userName}ちゃん自身のエネルギーを満たさないと、誰かを救う魔法は使えないからね。ケーキを食べてお腹をぽんぽん叩いて喜んじゃおう！」`
+                };
+                output.innerText = localResponses[appState.currentDay] || localResponses[1];
+            };
+
+            await callGeminiAPI(systemPrompt, userQuery, successCallback, fallbackCallback, loading);
+        }
+
+        async function callGeminiAPI(systemPrompt, userQuery, successFn, errorFn, loadingEl) {
+            if (!apiKey) {
+                setTimeout(() => {
+                    loadingEl.classList.add('hidden');
+                    errorFn();
+                }, 1000);
+                return;
+            }
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (resultText) {
+                        loadingEl.classList.add('hidden');
+                        successFn(resultText);
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.error("Gemini API error. Loading local response.");
+            }
+
+            loadingEl.classList.add('hidden');
+            errorFn();
+        }
+
+        // Toggle selected state in status buttons
+        let chosenStatus = 'yes';
+        function toggleSelectStatus(btn, status) {
+            chosenStatus = status;
+            document.querySelectorAll('.status-btn').forEach(b => {
+                b.className = "status-btn flex-1 py-3 rounded-2xl border-2 border-slate-100 text-slate-400 font-bold text-xs transition-all";
+            });
+            if (status === 'yes') {
+                btn.className = "status-btn flex-1 py-3 rounded-2xl border-2 border-pink-100 bg-pink-50/50 text-brand-pink font-black text-xs transition-all shadow-sm";
+            } else {
+                btn.className = "status-btn flex-1 py-3 rounded-2xl border-2 border-slate-300 bg-slate-100 text-slate-600 font-black text-xs transition-all shadow-sm";
+            }
+        }
+
+        // Feeling picker
+        let chosenFeeling = '😊';
+        function selectFeeling(btn, feeling) {
+            chosenFeeling = feeling;
+            document.querySelectorAll('.feeling-btn').forEach(b => {
+                b.classList.remove('border-brand-pink', 'bg-pink-50');
+                b.classList.add('border-transparent', 'bg-slate-50');
+            });
+            btn.classList.remove('border-transparent', 'bg-slate-50');
+            btn.classList.add('border-brand-pink', 'bg-pink-50');
+        }
+
+        // Submitting Daily Magic Journal record
+        async function submitMagicJournal() {
+            const memo = document.getElementById('memo-input').value.trim();
+            const currentDayMission = appState.missions[appState.currentDay] || appState.missions[1];
+
+            // Build journal entry
+            const recordDateStr = new Date().toISOString().split('T')[0];
+            const newRecord = {
+                date: recordDateStr,
+                dayNum: appState.currentDay,
+                title: currentDayMission.title,
+                action: chosenStatus === 'yes' ? `${currentDayMission.title}を実行できた！` : `今日はミッションができなかった💦`,
+                feeling: `気持ち：${chosenFeeling}`,
+                change: memo ? memo : "特に変化なし",
+                laterChange: ""
+            };
+
+            const existingIdx = appState.pastRecords.findIndex(r => r.dayNum === appState.currentDay);
+            if (existingIdx >= 0) {
+                appState.pastRecords[existingIdx] = newRecord;
+            } else {
+                appState.pastRecords.push(newRecord);
+            }
+
+            appState.magicCompleted = true;
+            appState.isUnlocked = true;
+            saveState();
+
+            // Prepare feedback popup
+            openModal('modal-feedback');
+            const fbLoading = document.getElementById('feedback-loading');
+            const fbContent = document.getElementById('feedback-content-box');
+            fbLoading.classList.remove('hidden');
+            fbContent.innerText = "";
+
+            // Call Gemini feedback generator
+            const systemPrompt = `あなたは人間の一歩を応援する靴の精霊「ステップン」です。人間が小さな思いやりの一歩を踏み出したことに狂喜乱舞し、大はしゃぎしてこれでもかと褒め称えるパーソナリティです。「〜だよ！」「〜だね！」など幼児キャラクターのような、とにかく明るく可愛い口調で、ユーザー「${appState.userName}」の一歩を200文字程度で超ハイテンションに大絶賛してください。`;
+            const userQuery = `一歩「${currentDayMission.title}」を報告しました！
+状態：${chosenStatus === 'yes' ? 'できた！' : 'できなかった'}
+気持ち：${chosenFeeling}
+メモ：${memo}`;
+
+            const successCallback = (generatedText) => {
+                fbContent.innerText = generatedText;
+            };
+
+            const fallbackCallback = () => {
+                fbContent.innerText = `「きゃあああーい！すごすぎるよ、${appState.userName}ちゃん！ステップンは嬉しくて、お空まで飛んでっちゃいそうなぐらい大はしゃぎしちゃってるステップ！\n\n『${chosenStatus === 'yes' ? 'ミッションできた' : '挑戦した'}』その一歩が、世界をうーんと優しく包み込んだんだ。おまけに『${chosenFeeling}』っていう温かい気持ちを言葉にできたお主は、もう100点満点中1万点だよ！本当にありがとう！」`;
+            };
+
+            await callGeminiAPI(systemPrompt, userQuery, successCallback, fallbackCallback, fbLoading);
+            
+            renderTimeline();
+            renderCalendar();
+        }
+
+        // Close praise modal and unlock timline (BeReal Mode)
+        function finishFeedback() {
+            closeModal('modal-feedback');
+            document.getElementById('timeline-locked-screen').classList.add('hidden');
+            document.getElementById('timeline-unlocked-screen').classList.remove('hidden');
+            document.getElementById('share-lock-badge').classList.add('hidden');
+            switchTab('share');
+            showToast("🔓", "広場がアンロックされました！");
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-posts-container');
+            container.innerHTML = "";
+
+            // If user recorded today
+            const todayRecord = appState.pastRecords.find(r => r.dayNum === appState.currentDay);
+            if (todayRecord) {
+                const userPost = document.createElement('div');
+                userPost.className = "bg-pink-50/50 border border-pink-100 rounded-3xl p-4 space-y-2 relative";
+                userPost.innerHTML = `
+                    <div class="absolute top-2 right-2 bg-brand-pink text-white text-[8px] px-2 py-0.5 rounded-full font-black">あなた</div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-2xl">${appState.selectedAvatar}</span>
+                        <div>
+                            <strong class="text-xs text-slate-700">${appState.userName}</strong>
+                            <p class="text-[8px] text-slate-400">たった今 ・ Day ${todayRecord.dayNum}</p>
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-slate-600 font-semibold space-y-1 pl-2 border-l-2 border-brand-pink">
+                        <p><strong>実行：</strong> ${todayRecord.action}</p>
+                        <p><strong>気持ち：</strong> ${todayRecord.feeling}</p>
+                        <p><strong>変化：</strong> ${todayRecord.change}</p>
+                    </div>
+                `;
+                container.appendChild(userPost);
+            }
+
+            // Render mocks
+            appState.mockFeed.forEach(post => {
+                const feedCard = document.createElement('div');
+                feedCard.className = "bg-white border border-pink-50 rounded-3xl p-4 space-y-2 shadow-sm";
+                feedCard.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="text-2xl">${post.avatar}</span>
+                        <div>
+                            <strong class="text-xs text-slate-700">${post.name}</strong>
+                            <p class="text-[8px] text-slate-400">${post.date}</p>
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-slate-600 font-semibold space-y-1">
+                        <p><strong class="text-brand-pink">🪄 アクション：</strong> ${post.action}</p>
+                        <p><strong class="text-slate-400">💭 気持ち：</strong> ${post.feeling}</p>
+                        <p><strong class="text-brand-pinkDark">✨ 変化：</strong> ${post.change}</p>
+                    </div>
+                `;
+                container.appendChild(feedCard);
+            });
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-days-grid');
+            grid.innerHTML = "";
+            document.getElementById('calendar-count').innerText = `${appState.pastRecords.length}回`;
+
+            for (let d = 1; d <= 30; d++) {
+                const cell = document.createElement('button');
+                cell.className = "h-10 rounded-2xl flex items-center justify-center relative font-black transition-all focus:outline-none";
+
+                const recorded = appState.pastRecords.find(r => {
+                    const rDay = parseInt(r.date.split('-')[2]);
+                    return rDay === d;
+                });
+
+                if (recorded) {
+                    cell.className += " bg-gradient-to-tr from-brand-pink to-amber-300 text-white shadow-sm active:scale-95";
+                    cell.innerHTML = `<span>${d}</span><span class="absolute bottom-0.5 text-[5px]">⭐</span>`;
+                    cell.onclick = () => selectPastRecord(recorded);
+                } else {
+                    cell.className += " bg-slate-50 border border-slate-100 text-slate-400 hover:border-pink-200 hover:text-brand-pink";
+                    cell.innerText = d;
+                    cell.onclick = () => showToast("⌛", `${d}日の記録はまだありません。`);
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        function selectPastRecord(record) {
+            document.getElementById('past-date-tag').innerText = `7月${record.date.split('-')[2]}日 (Day ${record.dayNum})`;
+            document.getElementById('past-title-tag').innerText = record.title;
+            document.getElementById('past-action-text').innerText = record.action;
+            document.getElementById('past-feeling-text').innerText = record.feeling;
+            document.getElementById('past-change-text').innerText = record.change;
+
+            const disp = document.getElementById('later-change-display');
+            if (record.laterChange) {
+                disp.innerText = `「${record.laterChange}」`;
+                disp.classList.remove('hidden');
+            } else {
+                disp.classList.add('hidden');
+            }
+
+            document.getElementById('input-later-change').value = "";
+            document.getElementById('past-detail-box').setAttribute('data-selected-day', record.dayNum);
+            showToast("📅", `7月${record.date.split('-')[2]}日の記録を表示しました！`);
+        }
+
+        function saveLaterChange() {
+            const box = document.getElementById('past-detail-box');
+            const dayNum = parseInt(box.getAttribute('data-selected-day'));
+            const text = document.getElementById('input-later-change').value.trim();
+
+            if (!text) {
+                showToast("⚠️", "追記するお話を書いてみてね！");
+                return;
+            }
+
+            const record = appState.pastRecords.find(r => r.dayNum === (dayNum || 1));
+            if (record) {
+                record.laterChange = text;
+                saveState();
+
+                const disp = document.getElementById('later-change-display');
+                disp.innerText = `「${text}」`;
+                disp.classList.remove('hidden');
+                document.getElementById('input-later-change').value = "";
+
+                showToast("⏳✨", "ステップ効果の後日談を追記しました！");
+            }
+        }
+
+        function saveDiagnostic() {
+            const conf = document.getElementById('diagnostic-confidence').value;
+            const desc = document.getElementById('diagnostic-desc').value.trim();
+
+            appState.diagnosticData = { confidence: conf, desc: desc };
+            appState.diagnosticSubmitted = true;
+            saveState();
+
+            document.getElementById('diagnostic-save-status').innerText = "保存済み";
+            showToast("🔮", "ステップン：『心のカルテにメモしたよ！ぴったりな一歩を調合するのじゃ！』");
+        }
+
+        function skipDiagnostic() {
+            showToast("👍", "診断はスキップされました。");
+        }
+
+        function toggleOptOut() {
+            appState.optOut = document.getElementById('optout-select').value;
+            saveState();
+            showToast("🛡️", "プライバシー設定を保存しました。");
+        }
+
+        function triggerPayment(type) {
+            if (type === 'payforward') {
+                showToast("💳", "【デモ決済】次の誰かへ、親切のバトン（3,000円）が恩送りされました！🤝✨");
+            } else {
+                showToast("🪙", "【デモ決済】ステップンにお礼（500円）を投げ銭しました！🧞‍♂️");
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('nav button').forEach(btn => btn.className = "flex flex-col items-center justify-center text-slate-400 hover:text-brand-pinkDark transition-all focus:outline-none w-1/4");
+            
+            const lockBadge = document.getElementById('share-lock-badge');
+            if (appState.isUnlocked) {
+                lockBadge.classList.add('hidden');
+            } else {
+                lockBadge.classList.remove('hidden');
+            }
+
+            document.getElementById(`nav-${tabId}`).className = "flex flex-col items-center justify-center text-brand-pinkDark transition-all focus:outline-none w-1/4 scale-105";
+        }
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function showToast(icon, msg) {
+            const toast = document.getElementById('toast-notif');
+            document.getElementById('toast-icon').innerText = icon;
+            document.getElementById('toast-msg').innerText = msg;
+            
+            toast.classList.remove('-translate-y-24');
+            toast.classList.add('translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('-translate-y-24');
+            }, 4000);
+        }
     </script>
+
+    <!-- General Notification Toast -->
+    <div id="toast-notif" class="fixed top-12 max-w-xs bg-white border border-pink-100 text-brand-pinkDark px-4 py-3 rounded-2xl shadow-xl text-xs flex items-center space-x-2 transform -translate-y-24 transition-transform duration-500 ease-out z-[9999] pointer-events-none font-bold">
+        <span id="toast-icon">✨</span>
+        <span id="toast-msg">魔法の記録を保存しました。</span>
+    </div>
+
 </body>
 </html>
