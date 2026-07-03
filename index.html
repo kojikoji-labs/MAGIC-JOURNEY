@@ -1,97 +1,560 @@
-<!-- ... existing code ... -->
-        <!-- Header & Fast Customization Controls -->
-        <header class="w-full bg-[var(--color-nav-bg)] backdrop-blur-md px-4 py-2.5 flex items-center justify-between border-b border-[var(--color-nav-border)] z-30 transition-all">
-            <div class="flex items-center space-x-2">
-                <!-- Brand logo -->
-                <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-300 shadow bg-white">
-                    <img src="icon.png" class="w-full h-full object-cover" alt="ロゴ">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGIC JOURNEY - 魔法の一歩</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: M PLUS Rounded 1c -->
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg-base: #fffbf0;
+            --color-text-main: #4a4a4a;
+            --color-text-sub: #8b8b8b;
+            --color-accent: #f48fb1;
+            --color-accent-light: #fce4ec;
+            --color-gold: #fbc02d;
+            --color-card: #ffffff;
+            --color-nav-bg: rgba(255, 255, 255, 0.95);
+        }
+        
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: #f7f7f7;
+            color: var(--color-text-main);
+        }
+
+        /* 🪄 ぽってり温かいコンテナ設定 */
+        .app-container {
+            background-color: var(--color-bg-base);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #fffbf0 80%);
+        }
+
+        /* 🪄 なでなでランプのアニメーション */
+        @keyframes gentle-shake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-5deg) scale(1.02); }
+            75% { transform: rotate(5deg) scale(0.98); }
+        }
+        .shaking-lamp {
+            animation: gentle-shake 0.4s ease-in-out infinite;
+        }
+
+        /* 🪄 ステップンの感情アニメーション（CSSのみで画像を生き生きさせる） */
+        .stepun-sleeping {
+            opacity: 0.7;
+            transform: scale(0.95) translateY(10px);
+            filter: grayscale(20%);
+            transition: all 0.8s ease;
+        }
+        .stepun-awake {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: grayscale(0%);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes happy-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        .stepun-happy {
+            animation: happy-bounce 1s ease-in-out infinite;
+        }
+
+        /* 🪄 魔法のパーティクル */
+        .magic-dust {
+            position: absolute;
+            background: radial-gradient(circle, #fbc02d 0%, rgba(251, 192, 45, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: dust-float 1.5s ease-out forwards;
+        }
+        @keyframes dust-float {
+            0% { transform: translateY(0) scale(0); opacity: 1; }
+            100% { transform: translateY(-80px) translateX(var(--random-x)) scale(1.5); opacity: 0; }
+        }
+
+        /* 🪄 隠しスクロールバー */
+        ::-webkit-scrollbar { width: 0px; }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+
+    <!-- 📱 スマホサイズのメインキャンバス -->
+    <div class="app-container relative w-full max-w-md h-[920px] overflow-hidden flex flex-col border border-gray-100 rounded-[40px] sm:rounded-[40px] rounded-none">
+        
+        <!-- 🌟 ヘッダー (ロゴ画像使用) -->
+        <header class="w-full bg-[var(--color-nav-bg)] backdrop-blur-md px-5 py-4 flex items-center justify-between border-b border-pink-50 z-30">
+            <div class="flex items-center space-x-3">
+                <!-- 🖼️ 左上アイコン画像 -->
+                <div class="w-10 h-10 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white flex items-center justify-center">
+                    <img src="logo.png" alt="ロゴ" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/fce4ec/f48fb1?text=Logo'">
                 </div>
                 <div>
-                    <h1 class="text-xs font-black tracking-wider text-[var(--color-accent)]" style="font-size: 14px;">MAGIC JOURNEY</h1>
-<!-- ... existing code ... -->
-                        <!-- Massive Sleeping Stepun sprite frame sitting above the lamp -->
-                        <div class="absolute top-2 genie-floating z-20">
-                            <div class="genie-sprite-frame w-[140px] h-[140px] transition-all duration-500 bg-white" style="border-color: var(--color-gold);">
-                                <img src="stepun.jpg" id="genie-avatar-main" class="w-full h-full object-cover" alt="ステップン">
-                            </div>
-                        </div>
-
-                        <!-- Golden Lamp -->
-                        <div id="lamp-wrapper" class="relative z-10 cursor-grab active:cursor-grabbing transition-transform duration-100 mt-28">
-                            <div class="relative w-[180px] h-[120px] mx-auto drop-shadow-[0_12px_25px_var(--color-shadow)]">
-                                <img src="lamp.png" class="w-full h-full object-contain" alt="魔法のランプ">
-                            </div>
-                        </div>
-
-                        <!-- Touch Helper Indicator -->
-<!-- ... existing code ... -->
-                        <!-- Interactive Pose Container -->
-                        <div class="inline-flex relative items-center justify-center mb-3 genie-floating">
-                            <div class="genie-sprite-frame w-[130px] h-[130px] transition-all duration-500 bg-white" style="border-width: 4px;">
-                                <img src="stepun.jpg" id="genie-avatar-unlocked" class="w-full h-full object-cover" alt="ステップン">
-                            </div>
-                            <div class="absolute -bottom-1 -right-1 bg-[var(--color-gold)] text-slate-900 font-extrabold text-[9px] px-2 py-0.5 rounded-full border border-white shadow">ステップン</div>
-                        </div>
-
-                        <h3 class="text-xs font-black text-[var(--color-accent)] tracking-widest mb-0.5">🎉 お待たせ！今日の魔法だよ！</h3>
-<!-- ... existing code ... -->
-                <!-- Locked Overlay Screen with Sad Genie Pose -->
-                <div id="timeline-locked-screen" class="flex flex-col items-center justify-center text-center py-10 px-4 space-y-4">
-                    <div class="relative flex items-center justify-center w-32 h-32 rounded-full border border-[var(--color-card-border)] bg-[var(--color-card)] shadow-md">
-                        <!-- Sad Crying Pose for Lock Screen -->
-                        <div class="genie-sprite-frame w-[110px] h-[110px] grayscale opacity-80 bg-white" style="border-width: 3px;">
-                            <img src="stepun.jpg" class="w-full h-full object-cover" alt="ステップン">
-                        </div>
-                        <div class="absolute -bottom-1 -right-1 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center border-2 border-white font-black text-xs shadow">🔒</div>
-                    </div>
-                    <div class="space-y-1.5 max-w-xs">
-<!-- ... existing code ... -->
-                <!-- Diagnostic Prompt Section (Featured with Thinking stepun) -->
-                <div id="diagnostic-notice-card" class="bg-gradient-to-tr from-[var(--color-badge-bg)] to-[var(--color-input-bg)] border-2 border-dashed border-[var(--color-accent)]/40 p-4 rounded-3xl text-center space-y-3 shadow shadow-md relative overflow-hidden">
-                    <div class="absolute top-0 left-0 bg-[var(--color-accent)] text-white text-[7px] px-2.5 py-0.5 rounded-br-2xl font-black uppercase tracking-wider">Day 2 以降で解放</div>
-                    
-                    <div class="inline-flex relative items-center justify-center">
-                        <!-- Thinking/Cognitive Pose in settings -->
-                        <div class="genie-sprite-frame w-[90px] h-[90px] animate-pulse bg-white" style="border-width: 3px;">
-                            <img src="stepun.jpg" class="w-full h-full object-cover" alt="ステップン">
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-<!-- ... existing code ... -->
-                        <div>
-                            <span class="text-[7px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-300 font-black">恩送りモデル</span>
-                            <h3 class="text-xs font-black text-[var(--color-accent)] flex items-center space-x-1.5 mt-0.5">
-                                <span>🤝</span> <span>恩送り（ペイフォワード）と投げ銭</span>
-                            </h3>
-                        </div>
-                        <!-- Mini Heart Pose Stepun -->
-                        <div class="genie-sprite-frame w-[40px] h-[40px] bg-white" style="border-width: 1.5px;">
-                            <img src="stepun.jpg" class="w-full h-full object-cover" alt="ステップン">
-                        </div>
-                    </div>
-                    <p class="text-[9px] text-[var(--color-text-secondary)] leading-relaxed font-semibold">
-<!-- ... existing code ... -->
-            <!-- Humorous AI explanation block -->
-            <div class="relative bg-[var(--color-badge-bg)]/40 border border-[var(--color-card-border)] p-3 rounded-2xl space-y-2.5 shadow-inner">
-                <div class="flex items-center space-x-1.5 text-[10px] font-black text-[var(--color-accent)]">
-                    <!-- Thinking Pose Crop for Modal -->
-                    <div class="genie-sprite-frame w-[42px] h-[42px] bg-white" style="border-width: 2px;">
-                        <img src="stepun.jpg" class="w-full h-full object-cover" alt="ステップン">
-                    </div>
-                    <span>ステップンのおうえん解説 (Gemini AI):</span>
-                </div>
-                
-                <!-- Loading state for Gemini -->
-<!-- ... existing code ... -->
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-[var(--color-accent-light)] opacity-20 rounded-full blur-3xl"></div>
-            
-            <!-- Happy Trophy Stepun display -->
-            <div class="inline-flex relative items-center justify-center mb-2 genie-floating">
-                <div class="genie-sprite-frame w-[120px] h-[120px] animate-bounce bg-white" style="border-width: 4px;">
-                    <img src="stepun.jpg" id="genie-avatar-feedback" class="w-full h-full object-cover" alt="ステップン">
+                    <h1 class="text-sm font-black text-slate-700 tracking-wide">MAGIC JOURNEY</h1>
+                    <p class="text-[9px] text-[var(--color-accent)] font-bold">14日間の心のエクササイズ</p>
                 </div>
             </div>
+            <!-- デモ用 日数切替 -->
+            <button onclick="toggleDay()" id="day-badge" class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-[10px] font-black shadow-sm active:scale-95 transition">Day 1</button>
+        </header>
 
-            <div class="space-y-0.5">
-<!-- ... existing code ... -->
+        <!-- 📜 メインコンテンツ領域 -->
+        <main class="flex-1 overflow-y-auto pb-24 relative z-10">
+
+            <!-- ========================================== -->
+            <!-- 🔮 タブ1: 今日の魔法 (メイン画面) -->
+            <!-- ========================================== -->
+            <section id="tab-today" class="tab-content p-6 flex flex-col items-center space-y-6">
+                
+                <!-- 🧚‍♂️ ステップン キャラクターエリア -->
+                <div class="relative w-full flex flex-col items-center justify-center mt-4">
+                    
+                    <!-- 💬 吹き出し (すやすや画像) -->
+                    <div id="stepun-bubble" class="mb-2 h-12 flex items-end justify-center transition-opacity duration-300">
+                        <img src="sleep_bubble.jpg" id="img-bubble" class="h-full object-contain drop-shadow-sm" alt="吹き出し" onerror="this.src='https://placehold.co/200x50/ffffff/f48fb1?text=すやすや...'">
+                    </div>
+
+                    <!-- 🧚‍♂️ ステップン本体画像 -->
+                    <div class="relative w-40 h-40 z-20">
+                        <!-- グロウ効果 -->
+                        <div class="absolute inset-0 bg-blue-100 rounded-full blur-2xl opacity-60"></div>
+                        <img id="img-stepun" src="stepun.jpg" class="relative w-full h-full object-contain stepun-sleeping" alt="ステップン" onerror="this.src='https://placehold.co/200x200/e0f7fa/00acc1?text=Stepun'">
+                    </div>
+                </div>
+
+                <!-- 🪔 ランプなでなでゾーン -->
+                <div id="lamp-section" class="w-full flex flex-col items-center space-y-4">
+                    <div id="lamp-touch-zone" class="relative w-full h-48 flex justify-center items-center cursor-grab active:cursor-grabbing select-none">
+                        <!-- 🪔 本物のランプ画像 -->
+                        <img id="img-lamp" src="lamp.png" class="w-48 object-contain drop-shadow-[0_15px_15px_rgba(251,192,45,0.2)] z-20 transition-transform duration-100" alt="魔法のランプ" onerror="this.src='https://placehold.co/200x150/fff9c4/fbc02d?text=Lamp'">
+                        <!-- スワイプ案内 -->
+                        <div class="absolute bottom-0 text-[10px] font-black text-amber-500 bg-amber-50 px-4 py-1.5 rounded-full border border-amber-100 animate-pulse z-10">
+                            ✨ 左右に優しくなでてね ✨
+                        </div>
+                    </div>
+                    
+                    <!-- なでなでプログレスバー -->
+                    <div class="w-4/5 space-y-1.5">
+                        <div class="w-full h-3 bg-white rounded-full border border-gray-100 overflow-hidden shadow-inner">
+                            <div id="rub-progress" class="w-0 h-full bg-gradient-to-r from-amber-300 to-pink-400 transition-all duration-300 rounded-full"></div>
+                        </div>
+                        <p id="rub-text" class="text-center text-[10px] text-gray-400 font-bold">ステップンを起こそう...</p>
+                    </div>
+                </div>
+
+                <!-- 🎁 ミッション開放＆簡単報告エリア (隠し) -->
+                <div id="mission-section" class="hidden w-full flex flex-col items-center space-y-5 animate-fade-in">
+                    
+                    <!-- ミッションカード -->
+                    <div class="w-full bg-white rounded-3xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-pink-50 relative overflow-hidden text-center">
+                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-300 to-pink-300"></div>
+                        <span class="text-[9px] font-black text-pink-400 tracking-widest">TODAY'S MAGIC</span>
+                        <h2 id="mission-title" class="text-lg font-black text-slate-700 mt-1 mb-2">挨拶の魔法</h2>
+                        <p id="mission-desc" class="text-xs text-gray-500 font-semibold leading-relaxed px-2">店員さんに、いつもよりちょっと笑顔で『ありがとう』を言ってみる。</p>
+                        <button onclick="openMagicGuide()" class="mt-4 text-[10px] font-black text-blue-500 bg-blue-50 px-4 py-2 rounded-full hover:bg-blue-100 transition">
+                            💡 ステップンの詳しいアドバイスを読む
+                        </button>
+                    </div>
+
+                    <!-- 📝 簡単！報告フォーム (Q2仕様変更対応) -->
+                    <div class="w-full bg-white rounded-3xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-50 space-y-4">
+                        <h3 class="text-sm font-black text-slate-700 text-center">魔法は使えた？ 🧙‍♀️</h3>
+                        
+                        <!-- 1. 達成ボタン -->
+                        <div class="flex justify-center space-x-3">
+                            <button onclick="toggleSelect(this, 'status')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-gray-100 text-xs font-bold text-gray-400 transition-all">できた！🙌</button>
+                            <button onclick="toggleSelect(this, 'status')" class="status-btn flex-1 py-3 rounded-2xl border-2 border-gray-100 text-xs font-bold text-gray-400 transition-all">できなかった💦</button>
+                        </div>
+
+                        <!-- 2. 気持ちボタン -->
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-bold text-gray-400 text-center">その時の気持ちは？</p>
+                            <div class="flex justify-between space-x-2">
+                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">😆</button>
+                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">😌</button>
+                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">💦</button>
+                                <button onclick="toggleSelect(this, 'feel')" class="feel-btn text-2xl p-2 rounded-2xl border-2 border-transparent bg-gray-50 hover:bg-pink-50 transition-colors">🤔</button>
+                            </div>
+                        </div>
+
+                        <!-- 3. 一言メモ -->
+                        <textarea id="memo-input" class="w-full bg-gray-50 rounded-2xl p-3 text-xs font-semibold text-gray-600 placeholder-gray-400 border border-gray-100 focus:outline-none focus:border-pink-300 h-16" placeholder="（任意）どんな変化があった？"></textarea>
+
+                        <!-- 送信ボタン -->
+                        <button onclick="submitMagic()" class="w-full bg-slate-800 text-white font-black py-3.5 rounded-full shadow-lg hover:scale-[1.02] active:scale-95 transition-transform text-xs">
+                            ステップンに報告する 🚀
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 💬 タブ2: コミュニティ -->
+            <!-- ========================================== -->
+            <section id="tab-comm" class="tab-content p-6 hidden space-y-5">
+                <div class="text-center">
+                    <h2 class="text-lg font-black text-slate-700">みんなの魔法</h2>
+                    <p class="text-[10px] text-gray-400 font-bold mt-1">思いやりの連鎖を感じる場所</p>
+                </div>
+
+                <!-- 🔒 ロック画面 (BeReal風) -->
+                <div id="comm-lock" class="flex flex-col items-center justify-center py-10 space-y-4 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                    <div class="text-4xl">🔒</div>
+                    <p class="text-xs font-black text-slate-600 px-6 text-center leading-relaxed">
+                        自分の「魔法の報告」を完了すると<br>仲間の素敵な魔法が見られるよ！
+                    </p>
+                    <button onclick="switchTab('today')" class="text-[10px] bg-pink-50 text-pink-500 font-black px-4 py-2 rounded-full">今日の魔法へ戻る</button>
+                </div>
+
+                <!-- 🔓 タイムライン (報告後) -->
+                <div id="comm-feed" class="hidden space-y-4">
+                    <!-- 先輩からの手紙 (Q3のA案実装) -->
+                    <div class="bg-blue-50 border border-blue-100 rounded-3xl p-4 relative overflow-hidden shadow-sm">
+                        <div class="absolute -right-4 -bottom-4 text-6xl opacity-20">🕊️</div>
+                        <p class="text-[10px] font-black text-blue-500 mb-1">💌 卒業した先輩からの手紙</p>
+                        <p class="text-xs text-slate-600 font-semibold leading-relaxed">
+                            「最初は緊張するよね。でも、小さな一歩を踏み出した自分を、夜寝る前に思いっきり褒めてあげて！14日後には見える世界が変わってるよ。」<br>
+                            <span class="text-[9px] text-gray-400">— Day 14クリア済: みかさん</span>
+                        </p>
+                    </div>
+
+                    <!-- フィードアイテム -->
+                    <div class="bg-white border border-gray-100 rounded-3xl p-4 shadow-sm space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-sm">👱‍♀️</div>
+                            <div>
+                                <p class="text-[11px] font-black text-slate-700">さくら <span class="text-[9px] text-gray-400 font-normal">2時間前</span></p>
+                                <p class="text-[9px] text-pink-400 font-bold">魔法：挨拶の魔法</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 font-semibold pl-10">達成！😆<br>店員さんが笑顔で返してくれて、こっちまで元気になった！</p>
+                        <div class="pl-10 pt-2 flex space-x-2">
+                            <button class="bg-gray-50 px-3 py-1 rounded-full text-[10px] font-bold text-gray-500 hover:bg-pink-50 hover:text-pink-500 transition">❤️ 素敵！</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 📖 タブ3: わたしの記録 (カレンダー) -->
+            <!-- ========================================== -->
+            <section id="tab-record" class="tab-content p-6 hidden space-y-5">
+                <div class="text-center">
+                    <h2 class="text-lg font-black text-slate-700">魔法の軌跡</h2>
+                    <p class="text-[10px] text-gray-400 font-bold mt-1">14日間のジャーニーと、遅れてきた魔法</p>
+                </div>
+
+                <!-- 14日間プログレス -->
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 text-center space-y-2">
+                    <p class="text-xs font-black text-slate-600">卒業まで あと <span class="text-2xl text-amber-400 font-sans mx-1">13</span> 日</p>
+                    <div class="w-full h-2 bg-gray-50 rounded-full overflow-hidden">
+                        <div class="w-[7%] h-full bg-amber-400 rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- 記録カレンダーUI -->
+                <div class="bg-white rounded-3xl p-4 shadow-sm border border-gray-100">
+                    <div class="grid grid-cols-7 gap-2 text-center">
+                        <div class="text-[9px] font-black text-gray-400 mb-2">日</div><div class="text-[9px] font-black text-gray-400 mb-2">月</div><div class="text-[9px] font-black text-gray-400 mb-2">火</div><div class="text-[9px] font-black text-gray-400 mb-2">水</div><div class="text-[9px] font-black text-gray-400 mb-2">木</div><div class="text-[9px] font-black text-gray-400 mb-2">金</div><div class="text-[9px] font-black text-gray-400 mb-2">土</div>
+                        
+                        <!-- Dummy Days -->
+                        <div class="h-8"></div><div class="h-8"></div>
+                        <!-- Day 1 Completed -->
+                        <button class="h-8 bg-amber-100 text-amber-600 rounded-full font-black text-xs relative flex items-center justify-center">1<span class="absolute -bottom-1 text-[8px]">⭐</span></button>
+                        <!-- Day 2 Current -->
+                        <div class="h-8 bg-slate-800 text-white rounded-full font-black text-xs flex items-center justify-center shadow-md">2</div>
+                        <!-- Future Days -->
+                        <div class="h-8 text-gray-300 font-bold text-xs flex items-center justify-center">3</div>
+                        <div class="h-8 text-gray-300 font-bold text-xs flex items-center justify-center">4</div>
+                        <div class="h-8 text-gray-300 font-bold text-xs flex items-center justify-center">5</div>
+                    </div>
+                </div>
+
+                <!-- 日記と後日談 -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-5 shadow-sm border border-blue-100 space-y-3">
+                    <p class="text-[10px] font-black text-indigo-400 bg-white px-3 py-1 rounded-full inline-block">Day 1 の記録</p>
+                    <p class="text-xs text-slate-600 font-semibold">【達成】😆<br>席を譲ったら、すごく丁寧にお礼を言われた。</p>
+                    <hr class="border-blue-100">
+                    <div class="space-y-2">
+                        <p class="text-[10px] font-black text-blue-500 flex items-center"><span>⏳ 遅れてきた魔法（後日談）</span></p>
+                        <textarea class="w-full bg-white rounded-xl p-2 text-xs font-semibold text-gray-600 border border-blue-100 focus:outline-none" placeholder="数日後の変化を追記しよう"></textarea>
+                        <div class="text-right"><button class="bg-blue-500 text-white px-3 py-1 rounded-full text-[9px] font-black">保存</button></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- ⚙️ タブ4: マイページ (設定と診断) -->
+            <!-- ========================================== -->
+            <section id="tab-mypage" class="tab-content p-6 hidden space-y-5">
+                <div class="text-center">
+                    <h2 class="text-lg font-black text-slate-700">マイページ</h2>
+                    <p class="text-[10px] text-gray-400 font-bold mt-1">心のダイエット記録と設定</p>
+                </div>
+
+                <!-- 診断カード -->
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100 space-y-3 text-center">
+                    <div class="text-3xl">🪞</div>
+                    <h3 class="text-sm font-black text-slate-700">心の状態チェック</h3>
+                    <p class="text-[10px] text-gray-500 font-semibold leading-relaxed">
+                        今の心のエネルギー残量を教えてね。<br>あなたに合った魔法を用意するよ。
+                    </p>
+                    <div class="pt-2">
+                        <p class="text-[10px] font-black text-pink-400 mb-1 flex justify-between"><span>エネルギー不足</span><span>元気いっぱい</span></p>
+                        <input type="range" min="1" max="10" value="5" class="w-full accent-pink-400">
+                    </div>
+                </div>
+
+                <!-- プロフィール設定 -->
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-3">
+                    <h3 class="text-sm font-black text-slate-700 mb-2">プロフィール</h3>
+                    <div>
+                        <label class="text-[10px] font-black text-gray-400 block mb-1">おなまえ</label>
+                        <input type="text" value="ひろき" class="w-full bg-gray-50 rounded-xl p-2.5 text-xs font-bold text-gray-600 border border-gray-100">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-gray-400 block mb-1">データの研究提供</label>
+                        <select class="w-full bg-gray-50 rounded-xl p-2.5 text-xs font-bold text-gray-600 border border-gray-100 focus:outline-none">
+                            <option>許可する（社会の幸せに貢献する）</option>
+                            <option>許可しない</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- サポート / 決済リンク -->
+                <div class="text-center pt-2">
+                    <button class="text-[10px] font-black text-gray-400 underline decoration-gray-300 hover:text-pink-400 transition">恩送り（次の人に魔法をプレゼントする）</button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 🔮 ボトムナビゲーション -->
+        <nav class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[90%] h-16 bg-slate-800 rounded-3xl flex items-center justify-around px-2 z-40 shadow-[0_10px_25px_rgba(0,0,0,0.15)]">
+            <button onclick="switchTab('today')" id="nav-today" class="nav-btn text-white flex flex-col items-center scale-110 transition-all w-1/4">
+                <span class="text-xl">✨</span><span class="text-[8px] font-black mt-0.5">魔法</span>
+            </button>
+            <button onclick="switchTab('comm')" id="nav-comm" class="nav-btn text-gray-400 flex flex-col items-center hover:text-white transition-all w-1/4 relative">
+                <span id="nav-lock" class="absolute top-1 right-3 text-[10px]">🔒</span>
+                <span class="text-xl">💬</span><span class="text-[8px] font-black mt-0.5">広場</span>
+            </button>
+            <button onclick="switchTab('record')" id="nav-record" class="nav-btn text-gray-400 flex flex-col items-center hover:text-white transition-all w-1/4">
+                <span class="text-xl">📖</span><span class="text-[8px] font-black mt-0.5">記録</span>
+            </button>
+            <button onclick="switchTab('mypage')" id="nav-mypage" class="nav-btn text-gray-400 flex flex-col items-center hover:text-white transition-all w-1/4">
+                <span class="text-xl">⚙️</span><span class="text-[8px] font-black mt-0.5">マイ頁</span>
+            </button>
+        </nav>
+
+        <!-- 🧚‍♂️ アニメーション用・激褒めモーダル -->
+        <div id="praise-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <div class="bg-white w-full max-w-sm rounded-[40px] p-6 flex flex-col items-center text-center shadow-2xl transform scale-90 transition-transform duration-300" id="praise-card">
+                <!-- トロフィーステップン (ここで画像を再利用しますが、アニメーションで喜びを表現) -->
+                <div class="w-32 h-32 mb-4 relative">
+                    <div class="absolute inset-0 bg-amber-100 rounded-full blur-xl animate-pulse"></div>
+                    <img src="stepun.jpg" class="relative w-full h-full object-contain stepun-happy" alt="褒めるステップン" onerror="this.src='https://placehold.co/150x150/fff8e1/ffb300?text=Happy'">
+                </div>
+                <h3 class="text-lg font-black text-slate-700 mb-2">ステップンが大喜び！</h3>
+                <p class="text-xs font-semibold text-gray-600 leading-relaxed mb-6 bg-amber-50 p-4 rounded-3xl border border-amber-100">
+                    「うわああーい！ひろきちゃん、魔法の一歩を踏み出したんだね！すっごい勇気！えらいっ！この一歩が、明日の笑顔を作るんだよ！最高〜！🎉」
+                </p>
+                <button onclick="closePraise()" class="w-full bg-slate-800 text-white font-black py-3 rounded-full text-xs hover:scale-105 active:scale-95 transition-transform">
+                    広場（コミュニティ）を見に行く 🔓
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🪄 スクリプト (ロジック実装) -->
+    <script>
+        // 状態管理
+        let state = {
+            rubCount: 0,
+            isAwake: false,
+            isReported: false,
+            mission: {
+                title: "観察の魔法 🔍",
+                desc: "周りの人を観察して、心の中で「今日のおしゃれ大賞」をこっそり決めてみよう！",
+                guide: "スマホから目を上げて周りを見るだけで、世界はキラキラして見えるんだよ！誰かの素敵なところを探すのは、優しい心の準備運動なんだ！"
+            }
+        };
+
+        // タブ切り替え
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-white', 'scale-110');
+                btn.classList.add('text-gray-400');
+            });
+            document.getElementById(`nav-${tabId}`).classList.remove('text-gray-400');
+            document.getElementById(`nav-${tabId}`).classList.add('text-white', 'scale-110');
+
+            // BeRealロックの同期
+            if (tabId === 'comm') {
+                if (!state.isReported) {
+                    document.getElementById('comm-lock').classList.remove('hidden');
+                    document.getElementById('comm-feed').classList.add('hidden');
+                } else {
+                    document.getElementById('comm-lock').classList.add('hidden');
+                    document.getElementById('comm-feed').classList.remove('hidden');
+                }
+            }
+        }
+
+        // なでなでインタラクション (マウス＆タッチ)
+        const zone = document.getElementById('lamp-touch-zone');
+        const lampImg = document.getElementById('img-lamp');
+        const stepunImg = document.getElementById('img-stepun');
+        const bubble = document.getElementById('stepun-bubble');
+        const progressBar = document.getElementById('rub-progress');
+        const progressText = document.getElementById('rub-text');
+        const missionSec = document.getElementById('mission-section');
+        
+        let isDragging = false;
+        let lastX = 0;
+
+        const handleStart = (x) => {
+            if (state.isAwake) return;
+            isDragging = true;
+            lastX = x;
+            lampImg.classList.add('shaking-lamp');
+            createMagicDust(x, zone.offsetHeight / 2);
+        };
+
+        const handleMove = (x) => {
+            if (!isDragging || state.isAwake) return;
+            const diff = Math.abs(x - lastX);
+            
+            if (diff > 20) { // 往復判定
+                state.rubCount++;
+                lastX = x;
+                createMagicDust(x, zone.offsetHeight / 2);
+
+                // UI更新
+                let progress = Math.min((state.rubCount / 10) * 100, 100);
+                progressBar.style.width = progress + '%';
+
+                // おしゃべり変化
+                if (state.rubCount === 3) progressText.innerText = "んん... なにかな...？";
+                if (state.rubCount === 6) progressText.innerText = "くすぐったいよ〜！😆";
+                if (state.rubCount === 9) progressText.innerText = "目が覚めちゃうー！✨";
+
+                if (state.rubCount >= 10) {
+                    wakeUpStepun();
+                }
+            }
+        };
+
+        const handleEnd = () => {
+            isDragging = false;
+            lampImg.classList.remove('shaking-lamp');
+        };
+
+        zone.addEventListener('mousedown', e => handleStart(e.clientX));
+        zone.addEventListener('mousemove', e => handleMove(e.clientX));
+        window.addEventListener('mouseup', handleEnd);
+        
+        zone.addEventListener('touchstart', e => handleStart(e.touches[0].clientX), {passive: true});
+        zone.addEventListener('touchmove', e => handleMove(e.touches[0].clientX), {passive: true});
+        zone.addEventListener('touchend', handleEnd);
+
+        // パーティクル生成
+        function createMagicDust(x, y) {
+            const dust = document.createElement('div');
+            dust.className = 'magic-dust w-6 h-6';
+            dust.style.left = `${Math.random() * 80 + 10}%`; // ランダムな横位置
+            dust.style.top = `50%`;
+            dust.style.setProperty('--random-x', `${(Math.random() - 0.5) * 100}px`);
+            zone.appendChild(dust);
+            setTimeout(() => dust.remove(), 1500);
+        }
+
+        // ステップン起床処理
+        function wakeUpStepun() {
+            state.isAwake = true;
+            handleEnd();
+            
+            // アニメーション＆画像切り替え
+            bubble.classList.add('opacity-0'); // 吹き出しを消す
+            stepunImg.classList.remove('stepun-sleeping');
+            stepunImg.classList.add('stepun-awake', 'stepun-happy');
+            
+            // ランプエリアを隠してミッション表示
+            setTimeout(() => {
+                document.getElementById('lamp-section').style.display = 'none';
+                document.getElementById('mission-title').innerText = state.mission.title;
+                document.getElementById('mission-desc').innerText = state.mission.desc;
+                missionSec.classList.remove('hidden');
+            }, 800);
+        }
+
+        // フォームのボタン選択トグル
+        function toggleSelect(btn, groupClass) {
+            const group = document.querySelectorAll(`.${groupClass}-btn`);
+            group.forEach(b => {
+                b.classList.remove('bg-pink-50', 'border-pink-300', 'text-pink-600');
+                if(groupClass === 'status') b.classList.add('border-gray-100', 'text-gray-400');
+            });
+            btn.classList.add('bg-pink-50', 'border-pink-300', 'text-pink-600');
+            if(groupClass === 'status') btn.classList.remove('border-gray-100', 'text-gray-400');
+        }
+
+        // アドバイス表示
+        function openMagicGuide() {
+            alert(`💡 ステップンのアドバイス：\n\n${state.mission.guide}`);
+        }
+
+        // 報告送信と激褒めモーダル
+        function submitMagic() {
+            // モーダル表示アニメーション
+            const modal = document.getElementById('praise-modal');
+            const card = document.getElementById('praise-card');
+            modal.classList.remove('hidden');
+            // 少し遅延させてフェードイン
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-90');
+            }, 50);
+
+            // ロック解除処理
+            state.isReported = true;
+            document.getElementById('nav-lock').classList.add('hidden');
+        }
+
+        function closePraise() {
+            const modal = document.getElementById('praise-modal');
+            const card = document.getElementById('praise-card');
+            modal.classList.add('opacity-0');
+            card.classList.add('scale-90');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                switchTab('comm'); // 広場へ移動
+            }, 300);
+        }
+
+        // デモ用 日数トグル
+        function toggleDay() {
+            const badge = document.getElementById('day-badge');
+            if(badge.innerText === 'Day 1') {
+                badge.innerText = 'Day 2';
+                badge.classList.replace('text-pink-600', 'text-blue-600');
+                badge.classList.replace('bg-pink-100', 'bg-blue-100');
+                alert("Day 2になりました！\n日替わりのミッションが届きます。（プロトタイプデモ）");
+            } else {
+                badge.innerText = 'Day 1';
+                badge.classList.replace('text-blue-600', 'text-pink-600');
+                badge.classList.replace('bg-blue-100', 'bg-pink-100');
+            }
+        }
+    </script>
+</body>
+</html>
